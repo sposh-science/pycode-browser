@@ -1,0 +1,3812 @@
+#LyX 1.4.2 created this file. For more info see http://www.lyx.org/
+\lyxformat 245
+\begin_document
+\begin_header
+\textclass article
+\language english
+\inputencoding auto
+\fontscheme default
+\graphics default
+\paperfontsize default
+\spacing other 1.2
+\papersize default
+\use_geometry false
+\use_amsmath 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Python in Physics Education
+\end_layout
+
+\begin_layout Author
+ajith@iuac.res.in
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+Mathematics is considered as the language of physics.
+ Physical laws are expressed as mathematical relations and they are solved
+ under desired boundary conditions to obtain the results.
+ To illustrate this point take the example of the relationship between electric
+ and magnetic fields as represented by the Maxwell's equations
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\nabla\times E=-\frac{\partial B}{\partial t}\,;\,\,\nabla\times B=\mu_{0}J+\mu_{0}\varepsilon_{0}\frac{\partial E}{\partial t}\,;\,\nabla.E=\frac{\rho}{\varepsilon_{0}}\,;\nabla.B=0\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In order to find out the field distribution inside a resonator cavity, we
+ need to solve these equations by applying suitable boundary conditions
+ dictated by the geometry of the cavity and electromagnetic properties of
+ the material used for making it.
+ For simple geometries, analytic solutions are possible but in most cases
+ numerical methods are essential and that is one reason why computers are
+ important for physics.
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+With the wide spread availability of personal computers, programming has
+ been included in almost all Physics courses.
+ Unfortunately the learning has been in separate compartments without any
+ attempt to apply the acquired programming skills to understand physics
+ in a better way.
+ Partially this has been due to, in my view, the complexities of the chosen
+ languages like FORTRAN, C, C++ etc.
+ Another drawback was the lack of libraries to generate visual output.
+ This writeup is an attempt to connect computer programming with physics
+ learning.
+ The language chosen is Python, due to its simplicity and the huge collection
+ of libraries, mainly the ones for doing math and graphics.
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+
+\begin_inset Foot
+status open
+
+\begin_layout Standard
+All the Python programs listed in this article are on the Phoenix Live CD.
+ To run them boot from the liveCD, in graphics mode open a terminal, change
+ to directory 'phy' and type
+\end_layout
+
+\begin_layout Standard
+# python program_name.py
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Python Basics
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+The first reaction from most of the readers would be like 
+\begin_inset Quotes eld
+\end_inset
+
+Oh.
+ No.
+ One more programming language.
+ I already had tough time learning the one know now
+\begin_inset Quotes erd
+\end_inset
+
+ .
+ Cool down, Python is not harmful as the name sounds.
+ A high school student with average intelligence can pick it up within two
+ weeks.
+ What is there in a programming language anyway.
+ It allows you to create variables, like elementary algebra, and allows
+ you to manipulate them using arithmetic and logical operators.
+ A sequence of such statements make the program.
+ But most of the program are are not meant for running from the first line
+ to the last line.
+ Depending on the situation some lines may execute more than once and some
+ may be totally skipped.
+ This is done by using control flow statements for looping and decision
+ making (while/for loops and if-elif-else kind of stuff).
+ The variables belong to certain types like 'integer', 'float', 'string'
+ etc.
+ If you are new to programming refer to the book 'Snake wrangling for Kids',
+ included in Phoenix CD.
+ After that, as a test, read the code fragments below and if you can guess
+ their outputs, you know enough to proceed with the material in this writeup.
+\end_layout
+
+\begin_layout Standard
+Example 1:   test1.py
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a = 1
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+b = 1.2
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+c = 2 + 3j
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+d = 'i am a string'
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+e = [a, b, c, 'hello']
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print d, b * c, e                                        #what will be the
+ output
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+Example 2:  test2.py
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+x = 1 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+while x <= 10:
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+      print x * 8 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+      x = x + 1 
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+Example 3:  test3.py
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+s = 'hello world' 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+m = [1, 2.3, 33, 'ha'] 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+for k in s: 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+      print k 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+for k in m:
+\end_layout
+
+\begin_layout LyX-Code
+      print m
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+Example 4:  test4.py
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+x = range(10)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print x
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+for i in x:
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+     if i > 8: 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+          print i
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+Example 5:  test5.py
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a = [12, 23] 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a.append(45) 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print a
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+Example 6: test6.py ( Three different ways to import a module)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+import time 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print time.ctime()
+\end_layout
+
+\begin_layout LyX-Code
+from time import *
+\end_layout
+
+\begin_layout LyX-Code
+print time()
+\end_layout
+
+\begin_layout LyX-Code
+import time as t
+\end_layout
+
+\begin_layout LyX-Code
+print t.time()
+\end_layout
+
+\begin_layout LyX-Code
+from math import sin  #imports only one function
+\end_layout
+
+\begin_layout LyX-Code
+print sin(2.0)
+\end_layout
+
+\begin_layout Standard
+Some modules may have several sub-packages containing functions.
+ For example the 'Special functions' sub-package from 'scipy' module can
+ be imported as
+\end_layout
+
+\begin_layout LyX-Code
+from scipy import special
+\end_layout
+
+\begin_layout LyX-Code
+print special.j0(0.2)  # print values of Bessel function
+\end_layout
+
+\begin_layout Section
+Plotting Graphs
+\end_layout
+
+\begin_layout Standard
+While studying physics, we come across various
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ mathematical functions.
+ In order to understand a function, we need to have some idea about its
+ derivatives, integrals, location of zeros, maxima and minima, etc.
+ A graphical representation conveys them quickly.
+ To do graph plotting without much coding, we need to use some library (
+ called modules in Python).
+ We will use Matplotlib (refer to the matplotlib user's guide on Phoenix
+ CD for details).
+ Let us start with a simple example (plot1.py).
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+x = range(10)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+plot(x)   
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+show()
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+The 'Matplotlib' package contains much more than simple plotting, and are
+ available in a module named 
+\family default
+\series default
+\shape italic
+\size default
+\emph default
+\bar default
+\noun default
+pylab
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+.
+ The first line imports all the functions from 'pylab'.
+ The 
+\family default
+\series default
+\shape italic
+\size default
+\emph default
+\bar default
+\noun default
+range()
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+ function generates a 'list' of ten numbers, that is passed on to the plot
+ routine.
+ When only a single list is given, 
+\family default
+\series default
+\shape italic
+\size default
+\emph default
+\bar default
+\noun default
+plot()
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+ takes it as the y-coordinates and x-coordinates are taken from 0 to N-1,
+ where N is the number of y-coordinates given.
+ The last statement 
+\family default
+\series default
+\shape italic
+\size default
+\emph default
+\bar default
+\noun default
+show()
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+ tells matplotlib to display the created graphs.
+ You can specify both x and y coordinates to the plot routine.
+ It is also possible to specify several other properties like the marker
+ shape and color.
+ (plot2.py)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+x = range(10,20)   
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+y = range(40,50)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+plot(x,y, marker = '+', color = 'red') 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+show()
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+Well, enough of the 2D plots using 'list' of integers.
+ How about plotting some mathematical functions.
+ Let us plot a sine curve.
+ (plot3.py)
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import  *
+\end_layout
+
+\begin_layout LyX-Code
+x = []                   
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+# empty lists
+\end_layout
+
+\begin_layout LyX-Code
+y = []
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+for k in range(100):
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+     ang = 0.1 * k
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+     sang = sin(ang)               # sine function from pylab
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+     x.append(ang)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+     y.append(sang)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+plot(x,y)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+show()
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+First we made two empty lists x and y.
+ Then entered a 
+\family default
+\series default
+\shape italic
+\size default
+\emph default
+\bar default
+\noun default
+for loop
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+ where the integer k goes from 0 to 99.
+ For each value of 'k' we took '0.1 * k' as the angle and added to the list
+ 'x'.
+ The sine of each angle is added to the list 'y'.
+ Doing this kind of coding is fine if your objective is to learn computer
+ programming but we are trying to use it as a tool for learning physics.
+ 
+\end_layout
+
+\begin_layout Subsection
+NumPy and Scipy
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+To get rid of loops etc.
+ we need data types likes arrays and matrices.
+ Fortunately Python has such libraries, for example Numpy.
+ For learning more about Numpy, refer to the Numpy documentation on the
+ Phoenix CD or www.scipy.org website.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Numpy documentation is not complete, however one can go through the online
+ help about numpy at its subpackages.
+ Start Python interpreter from a Terminal, import the package and ask for
+ help as shown below.
+\end_layout
+
+\begin_layout LyX-Code
+#python
+\end_layout
+
+\begin_layout LyX-Code
+>>>import numpy
+\end_layout
+
+\begin_layout LyX-Code
+>>>help(numpy)
+\end_layout
+
+\begin_layout LyX-Code
+>>>help(numpy.core)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\end_inset
+
+ Try out the simple examples shown below.
+ (numpy1.py)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+from numpy import *
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a = array( [ 10, 20, 30, 40 ] )  # create an array from a list 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print a
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print a * 3
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print a / 3
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+b = array([1.0, 2.0, 3.0, 4.0])
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+c = a + b
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a = array([1,2,3,4], dtype='float')
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a = array([[1,2],[3,4]])
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+Note that the operations performed on an array is carried out on each element,
+ we need not do it explicitly.
+ Numpy has several functions for the automatic creation of array objects.
+ Try the following lines to see how they work.
+\end_layout
+
+\begin_layout LyX-Code
+a = ones(10)
+\end_layout
+
+\begin_layout LyX-Code
+print a
+\end_layout
+
+\begin_layout LyX-Code
+a = zeros(10)
+\end_layout
+
+\begin_layout LyX-Code
+print a
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a= arange(0,10)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print a 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a = arange(0, 1, 0.1)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print a 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a = arange(0,10,1,dtype = 'float')
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print a 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+a = linspace(0,10,100)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+print a
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+Both 'arange' and 'linspace' functions generate an array.
+ The first and second arguments are the first and last elements.
+ For 'arange' , the third argument is the increment and for 'linspace' it
+ is the number of elements in the array.
+ In the case of arange() the last element may not match with the second
+ argument given.
+ We will try to make use of them in order to plot some mathematical functions.
+ (numpy2.)
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+from numpy import *
+\end_layout
+
+\begin_layout LyX-Code
+x = linspace(0.0, 2 * pi, 100)
+\end_layout
+
+\begin_layout LyX-Code
+s = sin(x)      # sine of each element of 'x' is taken
+\end_layout
+
+\begin_layout LyX-Code
+c = cos(x)      # cosine of each element of 'x' is taken
+\end_layout
+
+\begin_layout LyX-Code
+plot(x,s)
+\end_layout
+
+\begin_layout LyX-Code
+plot(x,c)
+\end_layout
+
+\begin_layout LyX-Code
+show()   
+\end_layout
+
+\begin_layout Standard
+Note that we have not imported Numpy explicitly.
+ Pylab requires 'numpy' and importing pylab brings numpy automatically.
+ The 'linspace' function generates an array of 100 equi-spaced values ranging
+ from 
+\begin_inset Formula $0\, to\,2\pi$
+\end_inset
+
+.
+ Also note that the 
+\begin_inset Formula $sin()$
+\end_inset
+
+ function ,from Numpy, is a vectorized version.
+ It takes an array as an argument, computes the sine of each element and
+ returns the result in an array.
+ Such features reduce the complexity of the program and allows us to concentrate
+ on physics rather than the computer program.
+ Comparing this with the previous program illustrates the simplicity achieved.
+ Try another example generating lissagous figures, (numpy3.py)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+x = linspace(0.0, 2 * pi, 100)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+plot(sin(x), cos(x), 'b')            # plot lissagous figures
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+plot(sin(2*x), cos(x),'r') 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+plot(sin(x), cos(2*x),'y') 
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+show()
+\end_layout
+
+\begin_layout Subsection
+Fourier Series
+\end_layout
+
+\begin_layout Standard
+The Fourier series is a mathematical tool used for analyzing periodic functions
+ by decomposing such a function into a weighted sum of much simpler sinusoidal
+ component functions.
+ Fourier series serve many useful purposes, as manipulation and conceptualizatio
+n of the modal coefficients are often easier than with the original function.
+ Areas of application include electrical engineering, vibration analysis,
+ acoustics, optics, signal and image processing, and data compression.
+ The example below shows how to generate a Square wave using this technique.
+ To make the output better, increase the number of terms by changing the
+ second argument of the range function.
+ (fourier1.py)
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import * 
+\end_layout
+
+\begin_layout LyX-Code
+x = linspace(0.0, 2 * pi, 100)
+\end_layout
+
+\begin_layout LyX-Code
+y = sin(x)
+\end_layout
+
+\begin_layout LyX-Code
+for h in range(3,10,2):      
+\end_layout
+
+\begin_layout LyX-Code
+        y = y + sin(h*x) / h
+\end_layout
+
+\begin_layout LyX-Code
+plot(x,y)
+\end_layout
+
+\begin_layout LyX-Code
+show()
+\end_layout
+
+\begin_layout Section
+Power Series
+\end_layout
+
+\begin_layout Standard
+Trignometric functions like sine and cosine sounds very familiar to all
+ of us, due to our familiarity with them since high school days.
+ However most of us would find it difficult to obtain the numerical values
+ of sin(2.0), say, without trigonometric tables or a calculator.
+ We know that differentiating a sine function twice will give you the original
+ function, with a sign reversal, which implies
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\frac{d^{2}y}{dx^{2}}+y=0\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+which has a series solution of the form
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+y=a_{0}\sum_{n=0}^{\infty}\left(-1\right)^{n}\frac{x^{2n}}{(2n)!}+a_{1}\sum_{n=0}^{\infty}\left(-1\right)^{n}\frac{x^{2n+1}}{(2n+1)!}\label{eq:Trig Series}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+These are the Maclaurin series for sine and cosine functions.
+ The following code plots several terms of the sine series and their sum.
+ Try varying the number of terms to see the deviation.
+ (series_sin.py)
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+from scipy import *
+\end_layout
+
+\begin_layout LyX-Code
+x = linspace(-pi,pi,40)
+\end_layout
+
+\begin_layout LyX-Code
+a = zeros(40)
+\end_layout
+
+\begin_layout LyX-Code
+plot(x,sin(x))
+\end_layout
+
+\begin_layout LyX-Code
+for n in  range(1,5):
+\end_layout
+
+\begin_layout LyX-Code
+        sign = (-1)**(n+1)
+\end_layout
+
+\begin_layout LyX-Code
+        term = x**(2*n-1) / factorial(2*n-1)
+\end_layout
+
+\begin_layout LyX-Code
+        a = a + sign * term
+\end_layout
+
+\begin_layout LyX-Code
+        print n,sign
+\end_layout
+
+\begin_layout LyX-Code
+        plot(x,term)
+\end_layout
+
+\begin_layout LyX-Code
+plot(x,a,'+')
+\end_layout
+
+\begin_layout LyX-Code
+show()
+\end_layout
+
+\begin_layout Standard
+The program given below evaluates the cosine function using this series
+ and compares it with the result of the cos() function from the math library
+ (that also must be doing the same).
+ We have written a vectored version of the cosine function that can accept
+ an array argument.
+ You can study the accuracy of the results obtained by varying the number
+ of terms included.
+ (series_cos.py)
+\end_layout
+
+\begin_layout LyX-Code
+import scipy, pylab
+\end_layout
+
+\begin_layout LyX-Code
+def mycos(x):
+\end_layout
+
+\begin_layout LyX-Code
+        res = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+        for n in range(18):
+\end_layout
+
+\begin_layout LyX-Code
+                res = res + (-1)**n *   (x ** (2*n)) / scipy.factorial(2*n)
+\end_layout
+
+\begin_layout LyX-Code
+        return res
+\end_layout
+
+\begin_layout LyX-Code
+def vmycos(ax):
+\end_layout
+
+\begin_layout LyX-Code
+        y = []
+\end_layout
+
+\begin_layout LyX-Code
+        for x in ax:
+\end_layout
+
+\begin_layout LyX-Code
+                y.append(mycos(x))
+\end_layout
+
+\begin_layout LyX-Code
+        return y
+\end_layout
+
+\begin_layout LyX-Code
+        
+\end_layout
+
+\begin_layout LyX-Code
+x = scipy.linspace(0,4*scipy.pi,100)
+\end_layout
+
+\begin_layout LyX-Code
+y = vmycos(x)
+\end_layout
+
+\begin_layout LyX-Code
+pylab.plot(x,y)
+\end_layout
+
+\begin_layout LyX-Code
+pylab.plot(x,scipy.cos(x),'+')
+\end_layout
+
+\begin_layout LyX-Code
+pylab.show()
+\end_layout
+
+\begin_layout Section
+3D Plots
+\end_layout
+
+\begin_layout Standard
+Matplotlib has a subpackage that supports 3D plots.
+ Some simple examples are given below and we will come back to it later.
+ (plot3d1.py)
+\end_layout
+
+\begin_layout LyX-Code
+from numpy import *
+\end_layout
+
+\begin_layout LyX-Code
+import pylab as p
+\end_layout
+
+\begin_layout LyX-Code
+import matplotlib.axes3d as p3
+\end_layout
+
+\begin_layout LyX-Code
+w = v = u = linspace(0, 4*pi, 100)
+\end_layout
+
+\begin_layout LyX-Code
+fig=p.figure()
+\end_layout
+
+\begin_layout LyX-Code
+ax = p3.Axes3D(fig)
+\end_layout
+
+\begin_layout LyX-Code
+ax.set_xlabel('X')
+\end_layout
+
+\begin_layout LyX-Code
+ax.set_ylabel('Y')
+\end_layout
+
+\begin_layout LyX-Code
+ax.set_zlabel('Z')
+\end_layout
+
+\begin_layout LyX-Code
+ax.plot3D(u,v,sin(w))
+\end_layout
+
+\begin_layout LyX-Code
+ax.plot3D(u,sin(v),w)
+\end_layout
+
+\begin_layout LyX-Code
+ax.plot3D(sin(u),v,u)
+\end_layout
+
+\begin_layout LyX-Code
+p.show()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Section
+Special Functions
+\end_layout
+
+\begin_layout Standard
+Solving certain differential equations give rise to special functions like
+ Bessel.
+ Legendre, Spherical harmonic etc.
+ depending upon the symmetry properties of the coordinate systems used.
+ Now we will start using another package called 'Scipy'.
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+Refer to the Phoenix CD or www.scipy.org for scipy documentation.
+\end_layout
+
+\end_inset
+
+ Scipy has subpackages for a large number of mathematical operations inclding
+ the computation of various special functions.
+\end_layout
+
+\begin_layout Subsection
+Bessel Functions
+\end_layout
+
+\begin_layout Standard
+Let us start with plotting the Bessel functions, restricted to integral
+ values of n, given by the expression
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+J_{n}=\left(\frac{x}{2}\right)^{n}\sum_{k=0}^{\infty}\frac{\left(-\right)^{k}\left(\frac{x}{2}\right)^{2k}}{\left(k!\right)\left(n+k\right)!}\label{eq:Bessel}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+using the following Python program.
+ It uses the 'Scipy' module.
+ (bes1.py)
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+from scipy import *
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+def vj0(xarray):
+\end_layout
+
+\begin_layout LyX-Code
+        y = []
+\end_layout
+
+\begin_layout LyX-Code
+        for  x in xarray:
+\end_layout
+
+\begin_layout LyX-Code
+                val = special.j0(x)        # Compute Jo
+\end_layout
+
+\begin_layout LyX-Code
+                y.append(val)
+\end_layout
+
+\begin_layout LyX-Code
+        return y
+\end_layout
+
+\begin_layout LyX-Code
+a = linspace(0,10,100)
+\end_layout
+
+\begin_layout LyX-Code
+b = vj0(a)
+\end_layout
+
+\begin_layout LyX-Code
+plot(a,b)
+\end_layout
+
+\begin_layout LyX-Code
+show()
+\end_layout
+
+\begin_layout Standard
+Note that function calculating Bessel function does not accept array arguments.
+ So we had to write a vectorized version of the same.
+ The next example generalizes the computation to higher orders as shown
+ below.
+ (bes2.py)
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+from scipy import *
+\end_layout
+
+\begin_layout LyX-Code
+def vjn(n,xarray):
+\end_layout
+
+\begin_layout LyX-Code
+        y = []
+\end_layout
+
+\begin_layout LyX-Code
+        for  x in xarray:
+\end_layout
+
+\begin_layout LyX-Code
+                val = special.jn(n,x)        # Compute Jn(x)
+\end_layout
+
+\begin_layout LyX-Code
+                y.append(val)
+\end_layout
+
+\begin_layout LyX-Code
+        return y
+\end_layout
+
+\begin_layout LyX-Code
+a = linspace(0,10,100)
+\end_layout
+
+\begin_layout LyX-Code
+for n in range(5):
+\end_layout
+
+\begin_layout LyX-Code
+        b = vjn(n,a)
+\end_layout
+
+\begin_layout LyX-Code
+        plot(a,b)
+\end_layout
+
+\begin_layout LyX-Code
+show()
+\end_layout
+
+\begin_layout Standard
+In the two examples above, the order in which pylab and scipy are imported
+ matters due to the following reason.
+ The function linspace() is there in both the packages.
+ They do the same job but the elements of the array returned by scipy.linspace()
+ are 'float' type but they are 'numpy.float64' in the case of numpy.linspace().
+ These sort of conflicts can arise when you are importing multiple libraries.
+ The best way to avoid them is to use the following syntax.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+import scipy
+\end_layout
+
+\begin_layout LyX-Code
+import numpy
+\end_layout
+
+\begin_layout LyX-Code
+a = scipy.linspace(0,1,10)       # from scipy
+\end_layout
+
+\begin_layout LyX-Code
+b = numpy.linspace(0,1,10)    # from numpy
+\end_layout
+
+\begin_layout LyX-Code
+c = linspace(0,1,10)                 # from numpy, last import
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+Instead of using the library function from scipy(), we can calculate the
+ Bessel functions using the expression 
+\begin_inset LatexCommand \ref{eq:Bessel}
+
+\end_inset
+
+ and compare the results.
+ Try changing the number of terms to see the deviations.
+ (bes3.py)
+\end_layout
+
+\begin_layout LyX-Code
+from scipy import *
+\end_layout
+
+\begin_layout LyX-Code
+from scipy import special
+\end_layout
+
+\begin_layout LyX-Code
+import pylab
+\end_layout
+
+\begin_layout LyX-Code
+def jn(n,x):
+\end_layout
+
+\begin_layout LyX-Code
+        jn = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+        for k in range(30):
+\end_layout
+
+\begin_layout LyX-Code
+                num = (-1)**k * (x/2)**(2*k)
+\end_layout
+
+\begin_layout LyX-Code
+                den = factorial(k)*factorial(n+k)
+\end_layout
+
+\begin_layout LyX-Code
+                jn = jn + num/den
+\end_layout
+
+\begin_layout LyX-Code
+        return jn * (x/2)**n
+\end_layout
+
+\begin_layout LyX-Code
+def vjn_local(n,xarray):
+\end_layout
+
+\begin_layout LyX-Code
+        y = []
+\end_layout
+
+\begin_layout LyX-Code
+        for  x in xarray:
+\end_layout
+
+\begin_layout LyX-Code
+                val = jn(n,x)        # Jn(x) using our function
+\end_layout
+
+\begin_layout LyX-Code
+                y.append(val)
+\end_layout
+
+\begin_layout LyX-Code
+        return y
+\end_layout
+
+\begin_layout LyX-Code
+        
+\end_layout
+
+\begin_layout LyX-Code
+def vjn(n,xarray):
+\end_layout
+
+\begin_layout LyX-Code
+        y = []
+\end_layout
+
+\begin_layout LyX-Code
+        for  x in xarray:
+\end_layout
+
+\begin_layout LyX-Code
+                val = special.jn(n,x)        # Compute Jn(x)
+\end_layout
+
+\begin_layout LyX-Code
+                y.append(val)
+\end_layout
+
+\begin_layout LyX-Code
+        return y
+\end_layout
+
+\begin_layout LyX-Code
+a = linspace(0,10,100)
+\end_layout
+
+\begin_layout LyX-Code
+for n in range(2):
+\end_layout
+
+\begin_layout LyX-Code
+        b = vjn(n,a)
+\end_layout
+
+\begin_layout LyX-Code
+        c = vjn_local(n,a)
+\end_layout
+
+\begin_layout LyX-Code
+        pylab.plot(a,b)
+\end_layout
+
+\begin_layout LyX-Code
+        pylab.plot(a,c,marker = '+')
+\end_layout
+
+\begin_layout LyX-Code
+pylab.show()
+\end_layout
+
+\begin_layout Subsection
+Polynomials
+\end_layout
+
+\begin_layout Standard
+Before proceeding with other special functions, let us have a look at the
+ one dimensional polynomial class 'poly1d' of Scipy.
+ You can define a polynomial by supplying the coefficient as a list.
+ For example , the statement p = poly1d([1,2,3]) constructs the polynomial
+ x**2 + 2 x + 3.
+ The following example describe the various operations you can do with this
+ class.
+ (ploy1.py)
+\end_layout
+
+\begin_layout LyX-Code
+import scipy
+\end_layout
+
+\begin_layout LyX-Code
+import pylab
+\end_layout
+
+\begin_layout LyX-Code
+a = scipy.poly1d([3,4,5])
+\end_layout
+
+\begin_layout LyX-Code
+print a, ' is the polynomial'
+\end_layout
+
+\begin_layout LyX-Code
+print a*a, 'is its square'
+\end_layout
+
+\begin_layout LyX-Code
+print a.deriv(), ' is its derivative'
+\end_layout
+
+\begin_layout LyX-Code
+print a.integ(), ' is its integral'
+\end_layout
+
+\begin_layout LyX-Code
+print a(0.5), 'is its value at x = 0.5'
+\end_layout
+
+\begin_layout LyX-Code
+x = scipy.linspace(0,5,100)
+\end_layout
+
+\begin_layout LyX-Code
+b = a(x)
+\end_layout
+
+\begin_layout LyX-Code
+pylab.plot(a,b)
+\end_layout
+
+\begin_layout LyX-Code
+pylab.show()
+\end_layout
+
+\begin_layout Standard
+Note that a polynomial can take an array argument for evaluation to return
+ the results in an array.
+ 
+\begin_inset Foot
+status collapsed
+
+\begin_layout Standard
+To know more type help(poly1d) at the python prompt after importing scipy;
+\end_layout
+
+\begin_layout LyX-Code
+>>>import scipy
+\end_layout
+
+\begin_layout LyX-Code
+>>>help(scipy.poly1d)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Legendre Functions
+\end_layout
+
+\begin_layout Standard
+The Legendre polynomials, sometimes called Legendre functions of the first
+ kind, are solutions to the Legendre differential equation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+(1-z^{2})\frac{d^{2}w}{dz^{2}}-2z\frac{dw}{dz}+n(n+1)w=0\label{eq:Legendre}\end{equation}
+
+\end_inset
+
+If n is an integer, they are polynomials.
+ The Legendre polynomials P_n(x) are illustrated using the Python program
+ given below.
+ (legen1.py)
+\end_layout
+
+\begin_layout LyX-Code
+from scipy import linspace, special
+\end_layout
+
+\begin_layout LyX-Code
+import pylab
+\end_layout
+
+\begin_layout LyX-Code
+x = linspace(-1,1,100)
+\end_layout
+
+\begin_layout LyX-Code
+for n in range(1,6):
+\end_layout
+
+\begin_layout LyX-Code
+        leg = special.legendre(n)
+\end_layout
+
+\begin_layout LyX-Code
+        y = leg(x)
+\end_layout
+
+\begin_layout LyX-Code
+        pylab.plot(x,y)
+\end_layout
+
+\begin_layout LyX-Code
+pylab.show()
+\end_layout
+
+\begin_layout Subsection
+Spherical Harmonics
+\end_layout
+
+\begin_layout Standard
+In mathematics, the spherical harmonics are the angular portion of an orthogonal
+ set of solutions to Laplace's equation represented in a system of spherical
+ coordinates.
+ Spherical harmonics are important in many theoretical and practical application
+s, particularly in the computation of atomic electron configurations, the
+ representation of the gravitational field, magnetic field of planetary
+ bodies, characterization of the cosmic microwave background radiation etc..
+ Laplace's equation in spherical polar coordinates can be written as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+\nabla^{2}\Phi=\frac{1}{r^{2}}\frac{\partial}{\partial r}\left(r^{2}\frac{\partial\Phi}{\partial r}\right)+\frac{1}{r^{2}\sin\theta}\frac{\partial}{\partial\theta}\left(\sin\theta\frac{\partial\Phi}{\partial\theta}\right)+\frac{1}{r^{2}\sin^{2}\theta}\frac{\partial^{2}\Phi}{\partial\phi^{2}}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Separation of variables in 
+\begin_inset Formula $r,\theta and\phi$
+\end_inset
+
+ coordinates gives the angular part of the solution as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+Y_{l}^{m}(\theta,\phi)=\sqrt{\frac{(2\ell+1}{4\pi}\frac{(l-m)!}{(l+m)!}}P_{l}^{m}(\cos\theta)e^{im\phi}\label{eq:Spherical harmonics}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This is a called a spherical harmonic function of degree 
+\begin_inset Formula $\ell$
+\end_inset
+
+ and order 
+\begin_inset Formula $m$
+\end_inset
+
+ , 
+\begin_inset Formula $P_{\ell}^{m}(\theta)$
+\end_inset
+
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ 
+\family default
+\series default
+\shape default
+\size default
+\emph default
+\bar default
+\noun default
+an associated Legendre function.
+ The following program calculates the spherical harmonics for 
+\begin_inset Formula $\ell=10,m=0$
+\end_inset
+
+ .
+ Change the values of 
+\begin_inset Formula $\ell andm$
+\end_inset
+
+ to observe the changes.
+ (sph1.py)
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+from scipy import special
+\end_layout
+
+\begin_layout LyX-Code
+a_th = []       # list to store polar angle theta from -90 to + 90 deg
+\end_layout
+
+\begin_layout LyX-Code
+a_sph = []      # list to store absolute values if sperical harminics
+\end_layout
+
+\begin_layout LyX-Code
+phi = 0.0       # Fix azimuth, phi at zero
+\end_layout
+
+\begin_layout LyX-Code
+theta = -pi/2           # start theta from -90 deg
+\end_layout
+
+\begin_layout LyX-Code
+while theta < pi/2:
+\end_layout
+
+\begin_layout LyX-Code
+        h = special.sph_harm(0,10, phi, theta)  # (m, l , phi, theta)
+\end_layout
+
+\begin_layout LyX-Code
+        a_sph.append(abs(h))
+\end_layout
+
+\begin_layout LyX-Code
+        a_th.append(theta * 180/pi)
+\end_layout
+
+\begin_layout LyX-Code
+        theta = theta + 0.02
+\end_layout
+
+\begin_layout LyX-Code
+plot(a_th,a_sph)
+\end_layout
+
+\begin_layout LyX-Code
+show()
+\end_layout
+
+\begin_layout Standard
+The spherical harmonics are easily visualized by counting the number of
+ zero crossings they possess in both the latitudinal and longitudinal directions.
+ For the latitudinal direction, the associated Legendre functions possess
+ 
+\begin_inset Formula $\ell-\left|m\right|$
+\end_inset
+
+ zeros, whereas for the longitudinal direction, the trigonomentric sin and
+ cos functions possess 
+\begin_inset Formula $2\left|m\right|$
+\end_inset
+
+ zeros.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+wide false
+sideways false
+status open
+
+\begin_layout Standard
+\align center
+\begin_inset Graphics
+	filename pics/sph_from_wp.eps
+	width 6cm
+	keepAspectRatio
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Caption
+Schematic representation of 
+\begin_inset Formula $Y_{\ell}^{m}$
+\end_inset
+
+ on the unit sphere.
+ 
+\begin_inset Formula $Y_{\ell}^{m}$
+\end_inset
+
+ is equal to 0 along m great circles passing through the poles, and along
+ l-m circles of equal latitude.
+ The function changes sign each time it crosses one of these lines.
+\begin_inset LatexCommand \label{fig:Schematic-representation-of Spherical harmonics}
+
+\end_inset
+
+ 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+When the spherical harmonic order m is zero, the spherical harmonic functions
+ do not depend upon longitude, and are referred to as zonal.
+ When 
+\begin_inset Formula $\ell=\left|m\right|$
+\end_inset
+
+, there are no zero crossings in latitude, and the functions are referred
+ to as sectoral.
+ For the other cases, the functions checker the sphere, and they are referred
+ to as tesseral.
+ The variation of a function on the surface of a sphere is shown in figure
+ 
+\begin_inset LatexCommand \ref{fig:Schematic-representation-of Spherical harmonics}
+
+\end_inset
+
+.
+ The Python program given below gives a 3D plot of a sphere.
+ The radius is modulated using the value of 
+\begin_inset Formula $Y_{\ell}^{m}$
+\end_inset
+
+ so that we can visualize it.
+ (sph2.py)
+\end_layout
+
+\begin_layout LyX-Code
+from numpy import *
+\end_layout
+
+\begin_layout LyX-Code
+from scipy import special
+\end_layout
+
+\begin_layout LyX-Code
+import pylab as p
+\end_layout
+
+\begin_layout LyX-Code
+import matplotlib.axes3d as p3
+\end_layout
+
+\begin_layout LyX-Code
+phi = linspace(0, 2*pi, 50)
+\end_layout
+
+\begin_layout LyX-Code
+theta = linspace(-pi/2, pi/2, 200)
+\end_layout
+
+\begin_layout LyX-Code
+ax = []
+\end_layout
+
+\begin_layout LyX-Code
+ay = []
+\end_layout
+
+\begin_layout LyX-Code
+az = []
+\end_layout
+
+\begin_layout LyX-Code
+R = 1.0
+\end_layout
+
+\begin_layout LyX-Code
+for t in theta:
+\end_layout
+
+\begin_layout LyX-Code
+        polar = float(t)
+\end_layout
+
+\begin_layout LyX-Code
+        for k in phi:
+\end_layout
+
+\begin_layout LyX-Code
+                azim = float(k)
+\end_layout
+
+\begin_layout LyX-Code
+                sph = special.sph_harm(0,5,azim, polar) # Y(m,l,phi,theta)
+\end_layout
+
+\begin_layout LyX-Code
+                modulation = 0.2 * abs(sph)
+\end_layout
+
+\begin_layout LyX-Code
+                r = R * ( 1 + modulation)
+\end_layout
+
+\begin_layout LyX-Code
+                x = r*cos(polar)*cos(azim)
+\end_layout
+
+\begin_layout LyX-Code
+                y = r*cos(polar)*sin(azim)
+\end_layout
+
+\begin_layout LyX-Code
+                z = r*sin(polar)
+\end_layout
+
+\begin_layout LyX-Code
+                ax.append(x)
+\end_layout
+
+\begin_layout LyX-Code
+                ay.append(y)
+\end_layout
+
+\begin_layout LyX-Code
+                az.append(z)
+\end_layout
+
+\begin_layout LyX-Code
+fig=p.figure()
+\end_layout
+
+\begin_layout LyX-Code
+f = p3.Axes3D(fig)
+\end_layout
+
+\begin_layout LyX-Code
+f.set_xlabel('X')
+\end_layout
+
+\begin_layout LyX-Code
+f.set_ylabel('Y')
+\end_layout
+
+\begin_layout LyX-Code
+f.set_zlabel('Z')
+\end_layout
+
+\begin_layout LyX-Code
+f.scatter3D(ax,ay,az)
+\end_layout
+
+\begin_layout LyX-Code
+p.show()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Section
+Numerical Differentiation
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+Simple Numerical Differentiation For a function y=f(x) , the derivative
+ 
+\begin_inset Formula $dy/dx$
+\end_inset
+
+ can be obtained numerically.
+ We take the difference between consecutive elements 
+\begin_inset Formula $dy$
+\end_inset
+
+ and divide it with the x increment 
+\begin_inset Formula $dx$
+\end_inset
+
+.
+ The following program create an array of 
+\begin_inset Formula $sines$
+\end_inset
+
+ and find the derivative numerically.
+ The result is compared with the 
+\begin_inset Formula $cosines$
+\end_inset
+
+ .
+ (diff1.py)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+dx = 0.1                # value of x increment
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+x = arange(0,10, dx)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+y = sin(x)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+yprime = []             # empty list
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+for k in range(99):     # from 100 points we get 99 diference values
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+        dy = y[k+1]-y[k]
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+        yprime.append(dy/dx)
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+x1 = x[:-1]             # A new array without the last element
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+x1 = x1 + dx/2          # The derivative corresponds to the middle point
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+plot(x1, yprime, '+')
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+plot(x1, cos(x1))       # Cross check with the analytic value
+\end_layout
+
+\begin_layout LyX-Code
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+show()
+\end_layout
+
+\begin_layout Standard
+(to be modified later)
+\end_layout
+
+\begin_layout Section
+Solving Differential Equations
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+If we know the value of a function 
+\begin_inset Formula $y=f(x)$
+\end_inset
+
+ and its derivative at some particular value of 'x' , we can calculate the
+ value of the function at a nearby point 
+\begin_inset Formula $x+dx$
+\end_inset
+
+ .
+ 
+\begin_inset Formula $Y_{n+1}$
+\end_inset
+
+ = 
+\begin_inset Formula $Y_{n}$
+\end_inset
+
+ + 
+\begin_inset Formula $dx.(dy/dx)$
+\end_inset
+
+ .
+ Integrating a function using this method is not very efficient compared
+ to the more sophisticated methods like fourth order Runge-Kutta.
+ However our objective is to just understand how numerical integration works.
+ We will trace the 'sine' function, that can be 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+\frac{d(\sin(x))}{dx}=\cos(x)\label{eq:sine}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Runge-Kutta Integration
+\end_layout
+
+\begin_layout Standard
+In the previous section we have used the Euler method that uses the formula
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \begin{equation}
+y_{n+1}=y_{n}+hf(x_{n},y_{n})\label{eq:Euler}\end{equation}
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+to evaluate the value of 'y' at point 'n+1' using the known value at 'n'.
+ The formula is asymmetrical since it uses the derivative information at
+ the beginning of the interval.
+ In Fourth order Runge-Kutta method, for each step the derivative is evaluated
+ four times; once at the initial point, twice at two trial midpoints, once
+ at trial a endpoint.
+ The final value is evaluated from these derivatives using the equations
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+k_{1}=hf(x_{n},y_{n})\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+k_{2}=hf(x_{n}+\frac{h}{2},y_{n}+\frac{k_{1}}{2})\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+k_{3}=hf(x_{n}+\frac{h}{2},y_{n}+\frac{k_{2}}{2})\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+k_{4}=hf(x_{n}+h,y_{n}+k_{3})\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula \[
+y_{n+1}=y_{n}+\frac{k_{1}}{6}+\frac{k_{2}}{3}+\frac{k_{3}}{3}+\frac{k_{4}}{6}\]
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+In numerical analysis, the Runge-Kutta methods are an important family of
+ implicit and explicit iterative methods for the approximation of solutions
+ of ordinary differential equations.
+ These techniques were developed around 1900 by the German mathematicians
+ C.
+ Runge and M.W.
+ Kutta.
+ For more details on fouth order Runge-Kutta method refer to the file 'rk.pdf'
+ on the Phoenix Live CD.
+ The following program makes the sine curve using 
+\shape italic
+fourth order RK method
+\shape default
+.
+ At any point the derivative of the curve is cos(t) and we use this information
+ to estimate the next point.
+ (rk_sin.py)
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+def func(t):
+\end_layout
+
+\begin_layout LyX-Code
+        return cos(t)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+def rk4(s,t):
+\end_layout
+
+\begin_layout LyX-Code
+        k1 = dt * func(t)
+\end_layout
+
+\begin_layout LyX-Code
+        k2 = dt * func(t + dt/2.0)
+\end_layout
+
+\begin_layout LyX-Code
+        k3 = dt * func(t + dt/2.0)
+\end_layout
+
+\begin_layout LyX-Code
+        k4 = dt * func(t + dt)
+\end_layout
+
+\begin_layout LyX-Code
+        return s + ( k1/6 + k2/3 + k3/3 + k4/6 )
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+t = 0.0         # Stating angle
+\end_layout
+
+\begin_layout LyX-Code
+dt = 0.01       # value of angle increment   
+\end_layout
+
+\begin_layout LyX-Code
+val = 0.0        # value of the 'sine' function at t = 0
+\end_layout
+
+\begin_layout LyX-Code
+tm = [0.0]      # List to store theta values
+\end_layout
+
+\begin_layout LyX-Code
+res = [0.0]     # RK4 results
+\end_layout
+
+\begin_layout LyX-Code
+while t < 10:
+\end_layout
+
+\begin_layout LyX-Code
+    val = rk4(val,t)      # get the new value
+\end_layout
+
+\begin_layout LyX-Code
+    t = t + dt
+\end_layout
+
+\begin_layout LyX-Code
+    tm.append(t)
+\end_layout
+
+\begin_layout LyX-Code
+    res.append(val)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+plot(tm, res,'+')
+\end_layout
+
+\begin_layout LyX-Code
+plot(tm, sin(tm))       # compare with actual curve
+\end_layout
+
+\begin_layout LyX-Code
+show()
+\end_layout
+
+\begin_layout Section
+Physics Simulations
+\end_layout
+
+\begin_layout Standard
+Using the numerical methods discussed in the previous sections we will try
+ to solve some simple problems in physics, like calculating the trajectory
+ of an object in a known force field.
+\end_layout
+
+\begin_layout Subsection
+Mass-Spring Problem
+\end_layout
+
+\begin_layout Standard
+As a simple example let us
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+ take the "Mass-Spring" problem.
+ A mass is attached to one end of a spring whose other end is fixed.
+ If we displace the mass from the equilibrium position by 
+\begin_inset Formula $x$
+\end_inset
+
+ , the force is given by the relation 
+\begin_inset Formula $F=-kx$
+\end_inset
+
+, where 
+\begin_inset Formula $k$
+\end_inset
+
+ is the spring constant.
+ If we release the mass at this point, it will start oscillating.
+ The objective is to plot the displacement of the mass as a function of
+ time.
+ The force is known at the initial point 
+\begin_inset Formula $-kx$
+\end_inset
+
+ , the acceleration of the mass when it is released is given by Newton's
+ equation 
+\begin_inset Formula $F=ma$
+\end_inset
+
+ , where m is the mass of the object.
+ The initial position is Xo and initial velocity Vo is zero.
+ We can integrate the acceleration to find out the velocity after a small
+ time interval 'dt'.
+ Similarly, integrating the velocity will give the displacement.
+ (spring1.py)
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+t = 0.0         # Stating time
+\end_layout
+
+\begin_layout LyX-Code
+dt = 0.01       # value of time increment
+\end_layout
+
+\begin_layout LyX-Code
+x = 10.0         # initial position
+\end_layout
+
+\begin_layout LyX-Code
+v = 0.0         # initial velocity
+\end_layout
+
+\begin_layout LyX-Code
+k = 10.0       # spring constant 
+\end_layout
+
+\begin_layout LyX-Code
+m = 2.0         # mass of the oscillating object
+\end_layout
+
+\begin_layout LyX-Code
+tm = []         # Empty lists to store time, velocity and displacement
+\end_layout
+
+\begin_layout LyX-Code
+vel = []
+\end_layout
+
+\begin_layout LyX-Code
+dis = []
+\end_layout
+
+\begin_layout LyX-Code
+while t < 5:
+\end_layout
+
+\begin_layout LyX-Code
+  f = -k * x                    # Try (-k*x - 0.5 * v) to add damping
+\end_layout
+
+\begin_layout LyX-Code
+  v = v +  (f/m ) * dt          # dv = a.dt 
+\end_layout
+
+\begin_layout LyX-Code
+  x = x + v * dt                # dS = v.dt 
+\end_layout
+
+\begin_layout LyX-Code
+  t = t + dt
+\end_layout
+
+\begin_layout LyX-Code
+  tm.append(t)
+\end_layout
+
+\begin_layout LyX-Code
+  vel.append(v)
+\end_layout
+
+\begin_layout LyX-Code
+  dis.append(x)
+\end_layout
+
+\begin_layout LyX-Code
+plot(tm,vel)
+\end_layout
+
+\begin_layout LyX-Code
+plot(tm,dis)
+\end_layout
+
+\begin_layout LyX-Code
+show()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\noun off
+\color none
+From the result we can see the phase relationship between the velocity and
+ the displacement.
+ If you want to see the effect of damping add that to the expression for
+ force.
+ Try changing parameters like spring constant, mass etc.
+ to study the effect of them on the result.
+\end_layout
+
+\begin_layout Standard
+The above problem is solved using the Fourth order Runge-Kutta method in
+ the program listed below.
+ The displacement, as a function of time, calculated using RK method is
+ compared with the result of the analytical expression.
+ (spring2.py)
+\end_layout
+
+\begin_layout LyX-Code
+"""
+\end_layout
+
+\begin_layout LyX-Code
+The rk4_two() routine in this program does a two step integration using
+\end_layout
+
+\begin_layout LyX-Code
+an array method.
+ The current x and xprime values are kept in a global 
+\end_layout
+
+\begin_layout LyX-Code
+list named 'val'.
+ 
+\end_layout
+
+\begin_layout LyX-Code
+val[0] = current position; val[1] = current velocity
+\end_layout
+
+\begin_layout LyX-Code
+The results are compared with analytically calculated values.
+\end_layout
+
+\begin_layout LyX-Code
+"""
+\end_layout
+
+\begin_layout LyX-Code
+from pylab import *
+\end_layout
+
+\begin_layout LyX-Code
+def accn(t, val):       
+\end_layout
+
+\begin_layout LyX-Code
+        force = -spring_const * val[0] - damping * val[1]
+\end_layout
+
+\begin_layout LyX-Code
+        return force/mass
+\end_layout
+
+\begin_layout LyX-Code
+        
+\end_layout
+
+\begin_layout LyX-Code
+def vel(t, val):
+\end_layout
+
+\begin_layout LyX-Code
+        return val[1]
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+def rk4_two(t, h):      # Time and Step value
+\end_layout
+
+\begin_layout LyX-Code
+        global xxp      # x and xprime values in a 'xxp'
+\end_layout
+
+\begin_layout LyX-Code
+        k1 = [0,0]      # initialize 5 empty lists.
+\end_layout
+
+\begin_layout LyX-Code
+        k2 = [0,0]
+\end_layout
+
+\begin_layout LyX-Code
+        k3 = [0,0]
+\end_layout
+
+\begin_layout LyX-Code
+        k4 = [0,0]
+\end_layout
+
+\begin_layout LyX-Code
+        tmp= [0,0]      
+\end_layout
+
+\begin_layout LyX-Code
+        k1[0] = vel(t,xxp)
+\end_layout
+
+\begin_layout LyX-Code
+        k1[1] = accn(t,xxp)
+\end_layout
+
+\begin_layout LyX-Code
+        for i in range(2):      # value of functions at t + h/2
+\end_layout
+
+\begin_layout LyX-Code
+                tmp[i] = xxp[i] + k1[i] * h/2 
+\end_layout
+
+\begin_layout LyX-Code
+        k2[0] = vel(t + h/2, tmp)
+\end_layout
+
+\begin_layout LyX-Code
+        k2[1] = accn(t + h/2, tmp)
+\end_layout
+
+\begin_layout LyX-Code
+        for i in range(2):      # value of functions at t + h/2
+\end_layout
+
+\begin_layout LyX-Code
+                tmp[i] = xxp[i] + k2[i] * h/2 
+\end_layout
+
+\begin_layout LyX-Code
+        k3[0] = vel(t + h/2, tmp)
+\end_layout
+
+\begin_layout LyX-Code
+        k3[1] = accn(t + h/2, tmp)
+\end_layout
+
+\begin_layout LyX-Code
+        for i in range(2):      # value of functions at t + h
+\end_layout
+
+\begin_layout LyX-Code
+                tmp[i] = xxp[i] + k3[i] * h 
+\end_layout
+
+\begin_layout LyX-Code
+        k4[0] = vel(t+h, tmp)
+\end_layout
+
+\begin_layout LyX-Code
+        k4[1] = accn(t+h, tmp)
+\end_layout
+
+\begin_layout LyX-Code
+        for i in range(2):      # value of functions at t + h
+\end_layout
+
+\begin_layout LyX-Code
+                xxp[i] = xxp[i] + ( k1[i] + 
+\backslash
+
+\end_layout
+
+\begin_layout LyX-Code
+                2.0*k2[i] + 2.0*k3[i] + k4[i]) * h/ 6.0
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+t = 0.0                 # Stating time
+\end_layout
+
+\begin_layout LyX-Code
+h = 0.01                # Runge-Kutta step size, time increment  
+\end_layout
+
+\begin_layout LyX-Code
+xxp = [2.0, 0.0]        # initial position & velocity
+\end_layout
+
+\begin_layout LyX-Code
+spring_const = 100.0    # spring constant
+\end_layout
+
+\begin_layout LyX-Code
+mass = 2.0              # mass of the oscillating object
+\end_layout
+
+\begin_layout LyX-Code
+damping = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+tm = [0.0]              # Lists to store time, position & velocity
+\end_layout
+
+\begin_layout LyX-Code
+x = [xxp[0]]
+\end_layout
+
+\begin_layout LyX-Code
+xp = [xxp[1]]
+\end_layout
+
+\begin_layout LyX-Code
+xth = [xxp[0]]
+\end_layout
+
+\begin_layout LyX-Code
+while t < 5:
+\end_layout
+
+\begin_layout LyX-Code
+    rk4_two(t,h)                  # Do one step RK integration
+\end_layout
+
+\begin_layout LyX-Code
+    t = t + h
+\end_layout
+
+\begin_layout LyX-Code
+    tm.append(t)
+\end_layout
+
+\begin_layout LyX-Code
+    xp.append(xxp[1])
+\end_layout
+
+\begin_layout LyX-Code
+    x.append(xxp[0])
+\end_layout
+
+\begin_layout LyX-Code
+    th = 2.0 * cos(sqrt(spring_const/mass)* (t))
+\end_layout
+
+\begin_layout LyX-Code
+    xth.append(th)
+\end_layout
+
+\begin_layout LyX-Code
+plot(tm,x)
+\end_layout
+
+\begin_layout LyX-Code
+plot(tm,xth,'+')
+\end_layout
+
+\begin_layout LyX-Code
+show()
+\end_layout
+
+\begin_layout Subsubsection
+Mass Spring problem in 3D
+\end_layout
+
+\begin_layout Standard
+The following program displays the movement of the mass attached toa spring
+ in 3D graphics.
+ (spring3d.py)
+\end_layout
+
+\begin_layout LyX-Code
+from visual import *
+\end_layout
+
+\begin_layout LyX-Code
+base = box (pos=(0,-1,0), length=16, height=0.1, width=4, color=color.blue)
+\end_layout
+
+\begin_layout LyX-Code
+wall = box (pos=(0,0,0), length=0.1, height=2, width=4, color=color.white)
+\end_layout
+
+\begin_layout LyX-Code
+ball = sphere (pos=(4,0,0), radius=1, color=color.red)
+\end_layout
+
+\begin_layout LyX-Code
+spring = helix(pos=(0,0,0), axis=(4,0,0), radius=0.5, color=color.red)
+\end_layout
+
+\begin_layout LyX-Code
+ball2 = sphere (pos=(-4,0,0), radius=1, color=color.green)
+\end_layout
+
+\begin_layout LyX-Code
+spring2 = helix(pos=(0,0,0), axis=(-4,0,0), radius=0.5, color=color.green)
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+t = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+dt = 0.01
+\end_layout
+
+\begin_layout LyX-Code
+x1 = 2.0
+\end_layout
+
+\begin_layout LyX-Code
+x2 = -2.0
+\end_layout
+
+\begin_layout LyX-Code
+v1 = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+v2 = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+k = 1000.0
+\end_layout
+
+\begin_layout LyX-Code
+m = 1.0
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout LyX-Code
+while 1:
+\end_layout
+
+\begin_layout LyX-Code
+   rate(20)
+\end_layout
+
+\begin_layout LyX-Code
+   f1 = -k * x1 
+\end_layout
+
+\begin_layout LyX-Code
+   v1 = v1 +  (f1/m ) * dt        # Acceleration = Force / mass ; dv = a.dt
+\end_layout
+
+\begin_layout LyX-Code
+   f2 = -k * x2 - v2                # damping proportional to velocity
+\end_layout
+
+\begin_layout LyX-Code
+   v2 = v2 +  (f2/m ) * dt       # Acceleration = Force / mass ; dv = a.dt
+\end_layout
+
+\begin_layout LyX-Code
+   x1 = x1 + v1 * dt
+\end_layout
+
+\begin_layout LyX-Code
+   x2 = x2 + v2 * dt
+\end_layout
+
+\begin_layout LyX-Code
+   t = t + dt
+\end_layout
+
+\begin_layout LyX-Code
+   spring.length =  4 + x1
+\end_layout
+
+\begin_layout LyX-Code
+   ball.x =  x1 + 4
+\end_layout
+
+\begin_layout LyX-Code
+   spring2.length = 4 - x2
+\end_layout
+
+\begin_layout LyX-Code
+   ball2.x =  x2 - 4 
+\end_layout
+
+\begin_layout Subsection
+Charged particle in Electric and Magnetic Fields
+\end_layout
+
+\begin_layout Standard
+The following example traces the movement of a charged particle under the
+ influence of electric and magnetic fields.
+ You can edit the program to change the components of the feilds to see
+ their effect on the trajectory.
+ For better results we should rewrite it using RK4 method.
+ (cp_em.py)
+\end_layout
+
+\begin_layout LyX-Code
+from numpy import *
+\end_layout
+
+\begin_layout LyX-Code
+import pylab as p
+\end_layout
+
+\begin_layout LyX-Code
+import matplotlib.axes3d as p3
+\end_layout
+
+\begin_layout LyX-Code
+Ex = 0.0        # Components of Applied Electric Field
+\end_layout
+
+\begin_layout LyX-Code
+Ey = 2.0
+\end_layout
+
+\begin_layout LyX-Code
+Ez = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+Bx = 0.0        # Magnetic field
+\end_layout
+
+\begin_layout LyX-Code
+By = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+Bz = 2.0
+\end_layout
+
+\begin_layout LyX-Code
+m = 2.0         # Mass of the particle
+\end_layout
+
+\begin_layout LyX-Code
+q = 5.0         # Charge
+\end_layout
+
+\begin_layout LyX-Code
+x = 0.0         # Components of initial position and velocity 
+\end_layout
+
+\begin_layout LyX-Code
+y = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+z = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+vx = 20.0
+\end_layout
+
+\begin_layout LyX-Code
+vy = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+vz = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+a = []
+\end_layout
+
+\begin_layout LyX-Code
+b = []
+\end_layout
+
+\begin_layout LyX-Code
+c = []
+\end_layout
+
+\begin_layout LyX-Code
+t = 0.0
+\end_layout
+
+\begin_layout LyX-Code
+dt = 0.01
+\end_layout
+
+\begin_layout LyX-Code
+while t < 6:    # trace until time reaches 1
+\end_layout
+
+\begin_layout LyX-Code
+  Fx = q * (Ex + (vy * Bz) - (vz * By) )
+\end_layout
+
+\begin_layout LyX-Code
+  vx = vx + Fx/m * dt           # Acceleration = F/m; dv = a.dt
+\end_layout
+
+\begin_layout LyX-Code
+  Fy = q * (Ey - (vx * Bz) + (vz * Bx) )
+\end_layout
+
+\begin_layout LyX-Code
+  vy = vy + Fy/m * dt
+\end_layout
+
+\begin_layout LyX-Code
+  Fz = q * (Ez + (vx * By) - (vy * Bx) )
+\end_layout
+
+\begin_layout LyX-Code
+  vz = vz + Fz/m * dt
+\end_layout
+
+\begin_layout LyX-Code
+  x = x + vx * dt
+\end_layout
+
+\begin_layout LyX-Code
+  y = y + vy * dt
+\end_layout
+
+\begin_layout LyX-Code
+  z = z + vz * dt
+\end_layout
+
+\begin_layout LyX-Code
+  a.append(x)
+\end_layout
+
+\begin_layout LyX-Code
+  b.append(y)
+\end_layout
+
+\begin_layout LyX-Code
+  c.append(z)
+\end_layout
+
+\begin_layout LyX-Code
+  t = t + dt
+\end_layout
+
+\begin_layout LyX-Code
+  
+\end_layout
+
+\begin_layout LyX-Code
+p.plot(c,b)
+\end_layout
+
+\begin_layout LyX-Code
+fig=p.figure()
+\end_layout
+
+\begin_layout LyX-Code
+ax = p3.Axes3D(fig)
+\end_layout
+
+\begin_layout LyX-Code
+ax.set_xlabel('X')
+\end_layout
+
+\begin_layout LyX-Code
+ax.set_ylabel('Y')
+\end_layout
+
+\begin_layout LyX-Code
+ax.set_zlabel('Z')
+\end_layout
+
+\begin_layout LyX-Code
+ax.plot3D(a,b,c)
+\end_layout
+
+\begin_layout LyX-Code
+p.show()
+\end_layout
+
+\begin_layout LyX-Code
+
+\end_layout
+
+\begin_layout Subsection
+Motion in a central field
+\end_layout
+
+\begin_layout Standard
+Run the program cf3d.py from the CD to simulate motion of a mass in a gravitation
+al field.
+\end_layout
+
+\begin_layout Section
+Matrix manipulation
+\end_layout
+
+\begin_layout Standard
+(todo)
+\end_layout
+
+\begin_layout Section
+Random Distributions
+\end_layout
+
+\begin_layout Standard
+(todo)
+\end_layout
+
+\end_body
+\end_document

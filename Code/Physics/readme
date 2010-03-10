@@ -1,0 +1,4 @@
+This directory contains small examples of numerical computation using
+Python. To run them, for example;
+
+#python plot1.py

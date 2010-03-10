@@ -1,0 +1,181 @@
+#!/usr/bin/python
+#  file_browser.py
+
+import os, stat, sys, time
+
+import pygtk
+pygtk.require('2.0')
+import gtk,gtk.glade
+import pango
+from user import home
+
+
+#####  FileBrowser  #########################################################
+
+class FileBrowser( object ):
+    """Holds a gtk widget that acts as a file browser.  It must be
+    initialized with a root directory.
+    """
+    def __init__( self, root_dir, filter_out_extensions = [] ):
+        self.root_dir  = root_dir
+        self.filter_out_ext = filter_out_extensions
+
+        ## The store will contain:
+        ## 0. filename (str)
+        ## 1. whether it's a directory (bool)
+        ## 2. file size (int)
+        ## 3. last modified (str)
+        column_mapping = [ 0, 2, 3 ]    # From user columns to model columns
+        self.file_structure = gtk.TreeStore(str, bool)
+        self.populate_tree(root_dir, self.file_structure.get_iter_root())
+
+	gladefile = "/home/space/Desktop/filebrowser/new/filebrowser.glade"
+	wTree=gtk.glade.XML(gladefile)
+        ## Create the treeview and link it to the model
+	self.w_treeview = wTree.get_widget("treeview")
+	self.w_treeview.set_model(self.file_structure)
+    	self.lbl_desc = wTree.get_widget("lbl_desc")
+    	self.lbl_desc.set_text("Select a file from the list and double click to open")
+    	
+    	dic={
+    		"on_frm_treeview_delete_event": self.quit,
+    	     	"on_btn_cancel_clicked": self.quit,
+    	     	"on_btn_open_clicked":self.open_file,
+    	     	"on_treeview_cursor_changed":self.disp_details
+    	    }
+    	    
+    	wTree.signal_autoconnect(dic)
+
+
+        ## Create the columns to view the contents
+        self.columns = [ gtk.TreeViewColumn(title)
+                         for title in [ 'Filename'] ]
+        self.w_cell = gtk.CellRendererText()
+        self.w_cell.set_property("xalign",0)
+        for i,column in enumerate(self.columns):
+            self.w_treeview.append_column(column)
+            column.set_property("resizable", True)
+            column.pack_end(self.w_cell, True)
+            column.add_attribute(self.w_cell, 'text', column_mapping[i])
+
+        ## Create a cell-renderer that displays a little directory or
+        ## document icon depending on the file type
+        self.w_cellpix = gtk.CellRendererPixbuf()
+        self.w_cellpix.set_property("xpad", 8)
+        self.w_cellpix.set_property("xalign", 0)
+        def pix_format_func(treeviewcolumn, cell, model, iter):
+            if model.get(iter,1)[0]:
+                cell.set_property("stock-id", gtk.STOCK_DIRECTORY)
+            else:
+                cell.set_property("stock-id", gtk.STOCK_ABOUT)
+        self.columns[0].pack_start(self.w_cellpix)
+        self.columns[0].set_cell_data_func(self.w_cellpix, pix_format_func)
+
+    def quit(*args):
+    	gtk.main_quit()
+    	
+    def open_file(self,obj):
+    	model, parent_iter = self.w_treeview.get_selection().get_selected()
+        pathname = self.get_pathname_from_iter(parent_iter)
+	extn = os.path.splitext(pathname)[1]
+        if extn == ".fgeo":
+        	os.system("drgeo " + pathname)
+  
+    
+    def disp_details(self,view):
+        model, parent_iter = view.get_selection().get_selected()
+        path = self.get_pathname_from_iter(parent_iter)
+	extn = os.path.splitext(path)[1]
+        if extn == ".fgeo":
+	        fname_without_extn  = os.path.splitext(path)[0]
+        	desc_fname = fname_without_extn + ".txt"
+        	if os.path.isfile(desc_fname) == True:
+		  	fl = open(desc_fname)
+  			desc = fl.read()
+		else:
+  			desc = "No description found"
+
+	else:
+		desc = "No description found"
+
+    	self.lbl_desc.set_text(desc)
+
+    	
+    def get_pathname_from_iter( self, treeiter ):
+        """Return a filesystem pathname from a tree in the path.  This
+        involves looking up the filenames at each step and joining them.
+        """
+        m  = self.file_structure
+        if treeiter:                    # Not at root
+            treepath  = m.get_path(treeiter)
+            filenames = [ ]
+            while treeiter is not None:
+                filenames.append(m.get_value(treeiter, 0))
+                treeiter = m.iter_parent(treeiter)
+            filenames.reverse()
+        else:
+            filenames = [ ]
+        return os.path.join(*[self.root_dir]+filenames)
+
+    def populate_tree( self, dir, treeparent, visit_subdirectories = True ):
+        """Given a location in the tree (given by treeparent), fill out the
+        file information.  Repopulation (i.e. calling a second time to
+        update the tree) is not very well handled right now.
+        """
+        m = self.file_structure
+        files = []
+        for f in os.listdir(dir):
+                      if f[0] != '.':
+	                if os.path.isdir(os.path.join(dir,f)):
+	                	files.append(f)
+                      	elif os.path.splitext(f)[1] in self.filter_out_ext:
+                      		files.append(f)
+        files.sort()
+        ## Stat each file andself.lbl_desc construct the row
+        for f in files:
+            row = [ f, False]
+            fname = os.path.join(dir, f)
+            try:
+                filestat = os.stat(fname)
+                row[1] = stat.S_ISDIR(filestat.st_mode)
+            except OSError:
+                pass
+            
+            m.append(treeparent, row)
+
+        ## Populate subdirectories if required
+        if visit_subdirectories and len(files) > 0:
+            n = m.iter_n_children(treeparent)
+            for i in range(n):
+                child_iter = m.iter_nth_child(treeparent,i)
+                if m.get_value(child_iter,1): # It's a subdirectory
+                    self.populate_tree(os.path.join(dir,files[i]),
+                                       child_iter, visit_subdirectories)
+
+    def set_double_click_callback( self, func ):
+        """The callback is called with the following arguments:
+        - filebrowser object
+        - pathname of the file clicked (not necessarily absolute)
+        - whether the file is a directory (bool
+        """
+        def treeview_callback(treeview, path, view_column):
+            file_iter = treeview.get_model().get_iter(path)
+            isdir = self.file_structure.get_value(file_iter, 1)
+            pathname = self.get_pathname_from_iter(file_iter)
+            func(self, pathname, isdir)
+        
+        self.w_treeview.connect("row-activated", treeview_callback)
+
+
+#####  Standalone Running  ##################################################
+
+if __name__ == "__main__":
+
+    def my_callback(fb,pathname,isdir):
+        extn  = os.path.splitext(pathname)[1]
+        if extn == ".fgeo":
+        	os.system("drgeo " + pathname)
+  
+    fb = FileBrowser(".",[".fgeo"])
+    fb.set_double_click_callback(my_callback)
+    gtk.main()
