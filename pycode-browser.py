@@ -156,7 +156,7 @@ class FileBrowser_drgeo( object ):
         if extn == ".py":
 	       	self.execute(pathname)
     def about(self,obj):
-        abouttxt="Python Code Browser: Version 0.8"
+        abouttxt="Python Code Browser: Version 0.9"
         self.helpBfr.set_text(abouttxt)
   
     def save_as(self,obj):
