@@ -11,9 +11,12 @@
 #    GNU General Public License for more details.
 #(c) SPACE 2007 www.space-kerala.org
 #Author: Vibeesh P <vibeesh@space-kerala.org>
-#modified on march 2, 2010 by Vimal Joseph to change the script to browse python programmes.
-#march 9, 2010 added save and some interface changes.
-#version 0.8
+# modified on march 2, 2010 by Vimal Joseph to change the script to browse python programmes.
+# march 9, 2010 added save and some interface changes.
+# April 3, 2010 replaced the gtktextview with gtksourceview for syntax highlighting and line
+# numbering. 
+# 
+# version 0.9
 
 
 import os, stat, sys, time
@@ -24,7 +27,10 @@ import gtk,gtk.glade
 import pango
 from user import home
 import shutil
-
+try:
+    import gtksourceview2 as gtksourceview
+except:
+    print "gtksourceview library is not installed. sudo apt-get install python-gtksourceview2"
 #GLOBALDIR = os.path.join(sys.prefix, 'share', 'pycode')
 #GLOBALDIR = ""
 #DEFAULTS = {
@@ -48,6 +54,17 @@ def abs_path():
         else:
             name = '.'
         return name
+
+def get_language_for_mime_type(mime):
+    lang_manager = gtksourceview.language_manager_get_default()
+    lang_ids = lang_manager.get_language_ids()
+    for i in lang_ids:
+        lang = lang_manager.get_language(i)
+        for m in lang.get_mime_types():
+            if m == mime:
+                return lang
+    return None
+
 #####  FileBrowser  #########################################################
 
 class FileBrowser_drgeo( object ):
@@ -71,13 +88,28 @@ class FileBrowser_drgeo( object ):
         ## Create the treeview and link it to the model
         self.w_treeview = wTree.get_widget("treeview")
         self.w_treeview.set_model(self.file_structure)
-        self.srcBfr = gtk.TextBuffer()
+        
+        self.srcBfr = gtksourceview.Buffer()
+        #mgr = gtksourceview.SourceLanguagesManager()
+        srcLanguage = get_language_for_mime_type("text/x-python")
+        
         self.helpBfr = gtk.TextBuffer()
-        self.srcView = wTree.get_widget("srcView")
+        self.srcScrolledWindow = wTree.get_widget("srcScrolledWindow")
+        self.srcView = gtksourceview.View(self.srcBfr)
+        self.srcScrolledWindow.add(self.srcView)
+        self.srcBfr.set_language(srcLanguage)
+        self.srcBfr.set_highlight_syntax(True)
         self.srcView.set_buffer(self.srcBfr)
+        self.srcView.set_show_line_numbers(True)
+        context = self.srcView.get_pango_context()
+        font = context.get_font_description()
+        font.set_size(int(font.get_size() * 1.5))
+        self.srcView.modify_font(font)
+        self.srcView.set_editable(False)
+        self.srcView.show()
         self.helpView = wTree.get_widget("helpView")
         self.helpView.set_buffer(self.helpBfr)
-        self.srcBfr.set_text("Python Code Browser: Select a python program from the left panel")
+        self.srcBfr.set_text("#Python Code Browser: Select a python program from the left panel")
         self.btnExecute=wTree.get_widget("btnExecute")
         self.btnSaveas=wTree.get_widget("btnSaveas")
         self.tbtnExecute=wTree.get_widget("tbtnExecute")
@@ -165,7 +197,7 @@ class FileBrowser_drgeo( object ):
             else:
                 hdesc = "Click on Execute to run this program\nSave as to save the program and modify it" 
         else:
-            desc="Python Code Browser: Select a python program from the left panel" 
+            desc="#Python Code Browser: Select a python program from the left panel" 
             hdesc="Select a python program from this directory"
             self.btnExecute.set_sensitive(False) 
             self.btnSaveas.set_sensitive(False) 
