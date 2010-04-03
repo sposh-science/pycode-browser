@@ -1,1 +1,6 @@
-PyCodeBrowser: You can put any number of python files in this directory and the software will list and execute the files. If you want to put a description for your python code, put a file with the same name but with .txt extention.
+PyCodeBrowser: You can put any number of python files in this
+directory and the software will list and execute the files. If you
+want to put a description for your python code, put a file with the
+same name but with .txt extention.
+
+Version 0.9
