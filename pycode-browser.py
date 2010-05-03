@@ -15,8 +15,8 @@
 # march 9, 2010 added save and some interface changes.
 # April 3, 2010 replaced the gtktextview with gtksourceview for syntax highlighting and line
 # numbering. 
-# 
-# version 0.9
+# May 3, 2010 now the modified programmes will execute in /tmp and will be deleted when exiting the application
+# version 0.91
 
 
 import os, stat, sys, time
@@ -105,11 +105,12 @@ class FileBrowser_drgeo( object ):
         font = context.get_font_description()
         font.set_size(int(font.get_size() * 1.5))
         self.srcView.modify_font(font)
-        self.srcView.set_editable(False)
+        #self.srcView.set_editable(False)
         self.srcView.show()
         self.helpView = wTree.get_widget("helpView")
         self.helpView.set_buffer(self.helpBfr)
         self.srcBfr.set_text("#Python Code Browser: Select a python program from the left panel")
+        self.tflist=[]
         self.btnExecute=wTree.get_widget("btnExecute")
         self.btnSaveas=wTree.get_widget("btnSaveas")
         self.tbtnExecute=wTree.get_widget("tbtnExecute")
@@ -144,11 +145,24 @@ class FileBrowser_drgeo( object ):
         self.columns[0].pack_start(self.w_cellpix)
         self.columns[0].set_cell_data_func(self.w_cellpix, pix_format_func)
 
-    def quit(*args):
+    def quit(self,*args):
+        for i in set(self.tflist):
+            os.system("rm /tmp/"+i)
     	gtk.main_quit()
     def execute (self,src):
-		os.system("gnome-terminal -x python -i " + src) 	
-
+        if self.srcBfr.get_modified()==True:
+            from random import randint
+            tag=str(randint(999,99999))
+            name="pycode-"+str(randint(9,999))
+            self.tfname=name+"-"+tag+".py"
+            f = open("/tmp/"+self.tfname,"w")
+            f.write(self.srcBfr.get_text(self.srcBfr.get_start_iter(), self.srcBfr.get_end_iter()))
+            f.close()
+            self.tflist.append(self.tfname)
+            #os.system("cp "+src+" /tmp/"+fname)
+            os.system("gnome-terminal -x python -i " + "/tmp/"+self.tfname)
+        else:
+            os.system("gnome-terminal -x python -i " + src)
     def open_file(self,obj):
     	model, parent_iter = self.w_treeview.get_selection().get_selected()
         pathname = self.get_pathname_from_iter(parent_iter)
@@ -156,7 +170,7 @@ class FileBrowser_drgeo( object ):
         if extn == ".py":
 	       	self.execute(pathname)
     def about(self,obj):
-        abouttxt="Python Code Browser: Version 0.9"
+        abouttxt="Python Code Browser: Version 0.91"
         self.helpBfr.set_text(abouttxt)
   
     def save_as(self,obj):
@@ -167,9 +181,14 @@ class FileBrowser_drgeo( object ):
         dialog.set_current_name(filename)
         response = dialog.run()
         if response == gtk.RESPONSE_OK:
-           shutil.copy(fpath,dialog.get_filename())
+            if self.srcBfr.get_modified()==True:
+                f = open(dialog.get_filename(),"w")
+                f.write(self.srcBfr.get_text(self.srcBfr.get_start_iter(), self.srcBfr.get_end_iter()))
+                f.close()
+            else:
+                shutil.copy(fpath,dialog.get_filename())
         elif response == gtk.RESPONSE_CANCEL:
-           print 'Closed, no files selected'
+            print 'Closed, no files selected'
         dialog.destroy()
 
 
@@ -205,7 +224,7 @@ class FileBrowser_drgeo( object ):
             self.tbtnSaveas.set_sensitive(False)   
     	self.srcBfr.set_text(desc)
         self.helpBfr.set_text(hdesc)
-
+        self.srcBfr.set_modified(False)
     	
     def get_pathname_from_iter( self, treeiter ):
         """Return a filesystem pathname from a tree in the path.  This
