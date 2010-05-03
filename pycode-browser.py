@@ -110,7 +110,6 @@ class FileBrowser_drgeo( object ):
         self.helpView = wTree.get_widget("helpView")
         self.helpView.set_buffer(self.helpBfr)
         self.srcBfr.set_text("#Python Code Browser: Select a python program from the left panel")
-        self.tflist=[]
         self.btnExecute=wTree.get_widget("btnExecute")
         self.btnSaveas=wTree.get_widget("btnSaveas")
         self.tbtnExecute=wTree.get_widget("tbtnExecute")
@@ -146,21 +145,15 @@ class FileBrowser_drgeo( object ):
         self.columns[0].set_cell_data_func(self.w_cellpix, pix_format_func)
 
     def quit(self,*args):
-        for i in set(self.tflist):
-            os.system("rm /tmp/"+i)
-    	gtk.main_quit()
+        gtk.main_quit()
     def execute (self,src):
         if self.srcBfr.get_modified()==True:
-            from random import randint
-            tag=str(randint(999,99999))
-            name="pycode-"+str(randint(9,999))
-            self.tfname=name+"-"+tag+".py"
-            f = open("/tmp/"+self.tfname,"w")
+            tname="pycode-0007-0007.py"
+            f = open("/tmp/"+tname,"w")
             f.write(self.srcBfr.get_text(self.srcBfr.get_start_iter(), self.srcBfr.get_end_iter()))
             f.close()
-            self.tflist.append(self.tfname)
             #os.system("cp "+src+" /tmp/"+fname)
-            os.system("gnome-terminal -x python -i " + "/tmp/"+self.tfname)
+            os.system("gnome-terminal -x python -i " + "/tmp/"+tname)
         else:
             os.system("gnome-terminal -x python -i " + src)
     def open_file(self,obj):
