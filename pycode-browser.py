@@ -16,11 +16,12 @@
 # April 3, 2010 replaced the gtktextview with gtksourceview for syntax highlighting and line
 # numbering. 
 # May 3, 2010 now the modified programmes will execute in /tmp and will be deleted when exiting the application
-# version 0.91
+# May 8, 2010, the vte terminal added
+# version 0.92
 
 
 import os, stat, sys, time
-
+import vte
 import pygtk
 pygtk.require('2.0')
 import gtk,gtk.glade
@@ -93,7 +94,7 @@ class FileBrowser_drgeo( object ):
         #mgr = gtksourceview.SourceLanguagesManager()
         srcLanguage = get_language_for_mime_type("text/x-python")
         
-        self.helpBfr = gtk.TextBuffer()
+        #self.helpBfr = gtk.TextBuffer()
         self.srcScrolledWindow = wTree.get_widget("srcScrolledWindow")
         self.srcView = gtksourceview.View(self.srcBfr)
         self.srcScrolledWindow.add(self.srcView)
@@ -107,8 +108,13 @@ class FileBrowser_drgeo( object ):
         self.srcView.modify_font(font)
         #self.srcView.set_editable(False)
         self.srcView.show()
-        self.helpView = wTree.get_widget("helpView")
-        self.helpView.set_buffer(self.helpBfr)
+        self.terminalScrolledWindow = wTree.get_widget("terminalScrolledWindow")
+        self.terminal_expander = wTree.get_widget("terminalexpander")
+        self.terminal = vte.Terminal()
+        self.terminalScrolledWindow.add(self.terminal)
+        self.terminal.show()
+        #self.helpView = wTree.get_widget("helpView")
+        #self.helpView.set_buffer(self.helpBfr)
         self.srcBfr.set_text("#Python Code Browser: Select a python program from the left panel")
         self.btnExecute=wTree.get_widget("btnExecute")
         self.btnSaveas=wTree.get_widget("btnSaveas")
@@ -147,15 +153,20 @@ class FileBrowser_drgeo( object ):
     def quit(self,*args):
         gtk.main_quit()
     def execute (self,src):
+        cmd = "/usr/bin/python"
         if self.srcBfr.get_modified()==True:
             tname="pycode-0007-0007.py"
             f = open("/tmp/"+tname,"w")
             f.write(self.srcBfr.get_text(self.srcBfr.get_start_iter(), self.srcBfr.get_end_iter()))
             f.close()
             #os.system("cp "+src+" /tmp/"+fname)
-            os.system("gnome-terminal -x python -i " + "/tmp/"+tname)
+            argv = [cmd, "/tmp/"+tname]
         else:
-            os.system("gnome-terminal -x python -i " + src)
+            argv = [cmd, src]
+        self.terminal.reset(True, True)
+        self.terminal.grab_focus()
+        self.terminal.fork_command(command=cmd, argv=argv, envv=None)
+        self.terminal_expander.set_expanded(True)
     def open_file(self,obj):
     	model, parent_iter = self.w_treeview.get_selection().get_selected()
         pathname = self.get_pathname_from_iter(parent_iter)
@@ -163,9 +174,13 @@ class FileBrowser_drgeo( object ):
         if extn == ".py":
 	       	self.execute(pathname)
     def about(self,obj):
-        abouttxt="Python Code Browser: Version 0.91"
-        self.helpBfr.set_text(abouttxt)
-  
+        abouttxt="Python Code Browser: Version 0.92"
+        #self.helpBfr.set_text(abouttxt)
+        cmd = "echo"
+        argv = [cmd, abouttxt]
+        self.terminal.reset(True, True)
+        self.terminal.fork_command(command=cmd,argv=argv)
+        self.terminal_expander.set_expanded(True)
     def save_as(self,obj):
         dialog = gtk.FileChooserDialog(title=None,action=gtk.FILE_CHOOSER_ACTION_SAVE,buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK))
         model, parent_iter = self.w_treeview.get_selection().get_selected()
@@ -216,7 +231,7 @@ class FileBrowser_drgeo( object ):
             self.tbtnExecute.set_sensitive(False) 
             self.tbtnSaveas.set_sensitive(False)   
     	self.srcBfr.set_text(desc)
-        self.helpBfr.set_text(hdesc)
+        #self.helpBfr.set_text(hdesc)
         self.srcBfr.set_modified(False)
     	
     def get_pathname_from_iter( self, treeiter ):

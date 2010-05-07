@@ -7,6 +7,7 @@
     <property name="height_request">600</property>
     <property name="visible">True</property>
     <property name="title" translatable="yes"> Python Code Browser</property>
+    <property name="window_position">center</property>
     <signal name="delete_event" handler="on_frm_treeview_delete_event"/>
     <child>
       <widget class="GtkVBox" id="vbox1">
@@ -202,30 +203,41 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHSeparator" id="hseparator1">
+          <widget class="GtkExpander" id="terminalexpander">
             <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <child>
+              <widget class="GtkScrolledWindow" id="terminalScrolledWindow">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hscrollbar_policy">never</property>
+                <property name="vscrollbar_policy">automatic</property>
+                <child>
+                  <placeholder/>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="Terminal">
+                <property name="visible">True</property>
+                <property name="label" translatable="yes">Terminal</property>
+              </widget>
+              <packing>
+                <property name="type">label_item</property>
+              </packing>
+            </child>
           </widget>
           <packing>
-            <property name="expand">False</property>
             <property name="position">3</property>
           </packing>
         </child>
         <child>
-          <widget class="GtkScrolledWindow" id="scrolledwindow3">
+          <widget class="GtkStatusbar" id="statusbar1">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="hscrollbar_policy">never</property>
-            <property name="vscrollbar_policy">automatic</property>
-            <child>
-              <widget class="GtkTextView" id="helpView">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="editable">False</property>
-                <property name="wrap_mode">word</property>
-              </widget>
-            </child>
+            <property name="spacing">2</property>
           </widget>
           <packing>
+            <property name="expand">False</property>
             <property name="position">4</property>
           </packing>
         </child>
