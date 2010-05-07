@@ -216,13 +216,8 @@ class FileBrowser_drgeo( object ):
                 fl = open(desc_fname)
                 desc = fl.read()
                 fl.close()
-            help_fname = fname_without_extn + ".txt"
-            if os.path.isfile(help_fname) == True:
-                fl = open(help_fname)
-                hdesc = fl.read()
-                fl.close()
-            else:
-                hdesc = "Click on Execute to run this program\nSave as to save the program and modify it" 
+                hdesc = "Click on Execute to run this program\nSave as to save the program and modify it"
+                #add the hdesc to status bar
         else:
             desc="#Python Code Browser: Select a python program from the left panel" 
             hdesc="Select a python program from this directory"
