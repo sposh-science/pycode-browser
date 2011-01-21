@@ -174,7 +174,7 @@ class FileBrowser_drgeo( object ):
         if extn == ".py":
 	       	self.execute(pathname)
     def about(self,obj):
-        abouttxt="Python Code Browser: Version 0.92"
+        abouttxt="Python Code Browser: Version 0.92\nCode: Vibeesh P., Vimal Joseph\nLicense: GNU GPL V3"
         #self.helpBfr.set_text(abouttxt)
         cmd = "echo"
         argv = [cmd, abouttxt]
