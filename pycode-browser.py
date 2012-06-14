@@ -1,5 +1,4 @@
 #!/usr/bin/python
-#   file_browser.py
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
 #    the Free Software Foundation, either version 3 of the License, or
@@ -10,14 +9,16 @@
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #    GNU General Public License for more details.
 #(c) SPACE 2007 www.space-kerala.org
-#Author: Vibeesh P <vibeesh@space-kerala.org>
-# modified on march 2, 2010 by Vimal Joseph to change the script to browse python programmes.
+#Authors: 
+# Vibeesh P <vibeesh@space-kerala.org>, 
+# Vimal Joseph <vimal.joseph@zyxware.com> (modified on march 2, 2010 by  to change the script to browse python programmes.)
 # march 9, 2010 added save and some interface changes.
 # April 3, 2010 replaced the gtktextview with gtksourceview for syntax highlighting and line
 # numbering. 
 # May 3, 2010 now the modified programmes will execute in /tmp and will be deleted when exiting the application
 # May 8, 2010, the vte terminal added
-# version 0.92
+# June 14, 2012 Minor corrections in the class name.
+# version 0.93
 
 
 import os, stat, sys, time
@@ -68,7 +69,7 @@ def get_language_for_mime_type(mime):
 
 #####  FileBrowser  #########################################################
 
-class FileBrowser_drgeo( object ):
+class FileBrowser_pycode( object ):
     """Holds a gtk widget that acts as a file browser.  It must be
     initialized with a root directory.
     """
@@ -174,7 +175,7 @@ class FileBrowser_drgeo( object ):
         if extn == ".py":
 	       	self.execute(pathname)
     def about(self,obj):
-        abouttxt="Python Code Browser: Version 0.92\nCode: Vibeesh P., Vimal Joseph\nLicense: GNU GPL V3"
+        abouttxt="Python Code Browser: Version 0.93\nCode: Vibeesh P., Vimal Joseph\nLicense: GNU GPL V3"
         #self.helpBfr.set_text(abouttxt)
         cmd = "echo"
         argv = [cmd, abouttxt]
@@ -309,6 +310,6 @@ if __name__ == "__main__":
         if extn == ".py":
         	fb.execute(pathname)
   
-    fb = FileBrowser_drgeo(abs_path()+'Code',[".py"])
+    fb = FileBrowser_pycode(abs_path()+'Code',[".py"])
     fb.set_double_click_callback(my_callback)
     gtk.main()
