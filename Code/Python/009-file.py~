@@ -1,0 +1,6 @@
+import math
+
+#write some data to a file
+f = open("/tmp/data.txt",'w')
+for i in range(-math.pi,math.pi,0.5):
+    print i

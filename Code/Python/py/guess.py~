@@ -1,0 +1,8 @@
+from random import choice
+
+def gen_guess():
+	return choice(range(1,1001))
+
+while True:
+	print "I'v thought of a number between 1 and 1000."
+
