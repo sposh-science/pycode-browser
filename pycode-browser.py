@@ -22,17 +22,15 @@
 
 
 import os, stat, sys, time
-import vte
+from gi.repository import Vte as vte
 import pygtk
 pygtk.require('2.0')
-import gtk,gtk.glade
-import pango
+from gi.repository import Gtk as gtk
+from gi.repository import Pango as pango
 from user import home
 import shutil
-try:
-    import gtksourceview2 as gtksourceview
-except:
-    print "gtksourceview library is not installed. sudo apt-get install python-gtksourceview2"
+from gi.repository import GtkSource
+
 #GLOBALDIR = os.path.join(sys.prefix, 'share', 'pycode')
 #GLOBALDIR = ""
 #DEFAULTS = {
@@ -58,7 +56,8 @@ def abs_path():
         return name
 
 def get_language_for_mime_type(mime):
-    lang_manager = gtksourceview.language_manager_get_default()
+    # lang_manager = gtksourceview.language_manager_get_default()
+    lang_manager = GtkSource.LanguageManager.get_default()
     lang_ids = lang_manager.get_language_ids()
     for i in lang_ids:
         lang = lang_manager.get_language(i)
@@ -84,20 +83,24 @@ class FileBrowser_pycode( object ):
         ## 3. last modified (str)
         column_mapping = [ 0, 2, 3 ]    # From user columns to model columns
         self.file_structure = gtk.TreeStore(str, bool)
-        self.populate_tree(root_dir, self.file_structure.get_iter_root())
-        gladefile = abs_path_gui("gui.glade")
-        wTree=gtk.glade.XML(gladefile)
+        self.populate_tree(root_dir, self.file_structure.get_iter_first())
+        uifile = abs_path_gui("gui.ui")
+        wTree = gtk.Builder()
+        wTree.add_from_file(uifile)
+        # wTree=gtk.glade.XML(gladefile)
         ## Create the treeview and link it to the model
-        self.w_treeview = wTree.get_widget("treeview")
+        # self.w_treeview = wTree.get_widget("treeview")
+        self.w_treeview = wTree.get_object("treeview")
         self.w_treeview.set_model(self.file_structure)
-        
-        self.srcBfr = gtksourceview.Buffer()
+
+        self.srcView = GtkSource.View()
+        self.srcBfr = self.srcView.get_buffer()
         #mgr = gtksourceview.SourceLanguagesManager()
         srcLanguage = get_language_for_mime_type("text/x-python")
         
         #self.helpBfr = gtk.TextBuffer()
-        self.srcScrolledWindow = wTree.get_widget("srcScrolledWindow")
-        self.srcView = gtksourceview.View(self.srcBfr)
+        self.srcScrolledWindow = wTree.get_object("srcScrolledWindow")
+        # self.srcView = gtksourceview.View(self.srcBfr)
         self.srcScrolledWindow.add(self.srcView)
         self.srcBfr.set_language(srcLanguage)
         self.srcBfr.set_highlight_syntax(True)
@@ -109,25 +112,26 @@ class FileBrowser_pycode( object ):
         self.srcView.modify_font(font)
         #self.srcView.set_editable(False)
         self.srcView.show()
-        self.terminalScrolledWindow = wTree.get_widget("terminalScrolledWindow")
-        self.terminal_expander = wTree.get_widget("terminalexpander")
+        self.terminalScrolledWindow = wTree.get_object("terminalScrolledWindow")
+        self.terminal_expander = wTree.get_object("terminalexpander")
         self.terminal = vte.Terminal()
         self.terminalScrolledWindow.add(self.terminal)
         self.terminal.show()
         #self.helpView = wTree.get_widget("helpView")
         #self.helpView.set_buffer(self.helpBfr)
         self.srcBfr.set_text("#Python Code Browser: Select a python program from the left panel")
-        self.btnExecute=wTree.get_widget("btnExecute")
-        self.btnSaveas=wTree.get_widget("btnSaveas")
-        self.tbtnExecute=wTree.get_widget("tbtnExecute")
-        self.tbtnSaveas=wTree.get_widget("tbtnSaveas")
+        self.btnExecute=wTree.get_object("btnExecute")
+        self.btnSaveas=wTree.get_object("btnSaveas")
+        self.tbtnExecute=wTree.get_object("tbtnExecute")
+        self.tbtnSaveas=wTree.get_object("tbtnSaveas")
         dic={"on_frm_treeview_delete_event": self.quit, 
              "quit_clicked": self.quit,
              "execute_clicked":self.open_file,
              "on_treeview_cursor_changed":self.disp_details,
              "saveas_clicked":self.save_as,
              "about_clicked":self.about}
-        wTree.signal_autoconnect(dic)
+        # wTree.signal_autoconnect(dic)
+        wTree.connect_signals(dic)
         ## Create the columns to view the contents
         self.columns = [ gtk.TreeViewColumn(title) for title in ['Filename'] ]
         self.w_cell = gtk.CellRendererText()
@@ -143,12 +147,15 @@ class FileBrowser_pycode( object ):
         self.w_cellpix = gtk.CellRendererPixbuf()
         self.w_cellpix.set_property("xpad", 8)
         self.w_cellpix.set_property("xalign", 0)
-        def pix_format_func(treeviewcolumn, cell, model, iter):
+        
+        def pix_format_func(treeviewcolumn, cell, model, iter, dummyParam):
+          #print treeviewcolumn, cell, model, iter, dummyParam
           if model.get(iter,1)[0]:
              cell.set_property("stock-id", gtk.STOCK_DIRECTORY)
           else:
              cell.set_property("stock-id", gtk.STOCK_ABOUT)
-        self.columns[0].pack_start(self.w_cellpix)
+             
+        self.columns[0].pack_start(self.w_cellpix, expand=True)
         self.columns[0].set_cell_data_func(self.w_cellpix, pix_format_func)
 
     def quit(self,*args):
@@ -158,7 +165,7 @@ class FileBrowser_pycode( object ):
         if self.srcBfr.get_modified()==True:
             tname="pycode-0007-0007.py"
             f = open("/tmp/"+tname,"w")
-            f.write(self.srcBfr.get_text(self.srcBfr.get_start_iter(), self.srcBfr.get_end_iter()))
+            f.write(self.srcBfr.get_text(self.srcBfr.get_start_iter(), self.srcBfr.get_end_iter(), include_hidden_chars=False))
             f.close()
             #os.system("cp "+src+" /tmp/"+fname)
             argv = [cmd, "/tmp/"+tname]
@@ -166,7 +173,8 @@ class FileBrowser_pycode( object ):
             argv = [cmd, src]
         self.terminal.reset(True, True)
         self.terminal.grab_focus()
-        self.terminal.fork_command(command=cmd, argv=argv, envv=None)
+        # self.terminal.fork(command=cmd, argv=argv, envv=None)
+        self.terminal.spawn_sync (pty_flags=0, working_directory=None, argv=argv, envv=None, spawn_flags=0, child_setup=None, child_setup_data=None, cancellable=None)
         self.terminal_expander.set_expanded(True)
     def open_file(self,obj):
     	model, parent_iter = self.w_treeview.get_selection().get_selected()
@@ -310,6 +318,6 @@ if __name__ == "__main__":
         if extn == ".py":
         	fb.execute(pathname)
   
-    fb = FileBrowser_pycode(abs_path()+'Code',[".py"])
+    fb = FileBrowser_pycode(os.path.join(abs_path(),'Code'),[".py"])
     fb.set_double_click_callback(my_callback)
     gtk.main()
