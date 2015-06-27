@@ -22,14 +22,15 @@
 
 
 import os, stat, sys, time
-from gi.repository import Vte as vte
+from gi.repository import Vte
 import pygtk
 pygtk.require('2.0')
-from gi.repository import Gtk as gtk
-from gi.repository import Pango as pango
+from gi.repository import Gtk
+
 from user import home
 import shutil
 from gi.repository import GtkSource
+from gi.repository import GLib
 
 #GLOBALDIR = os.path.join(sys.prefix, 'share', 'pycode')
 #GLOBALDIR = ""
@@ -56,7 +57,6 @@ def abs_path():
         return name
 
 def get_language_for_mime_type(mime):
-    # lang_manager = gtksourceview.language_manager_get_default()
     lang_manager = GtkSource.LanguageManager.get_default()
     lang_ids = lang_manager.get_language_ids()
     for i in lang_ids:
@@ -82,12 +82,12 @@ class FileBrowser_pycode( object ):
         ## 2. file size (int)
         ## 3. last modified (str)
         column_mapping = [ 0, 2, 3 ]    # From user columns to model columns
-        self.file_structure = gtk.TreeStore(str, bool)
+        self.file_structure = Gtk.TreeStore(str, bool)
         self.populate_tree(root_dir, self.file_structure.get_iter_first())
         uifile = abs_path_gui("gui.ui")
-        wTree = gtk.Builder()
+        wTree = Gtk.Builder()
         wTree.add_from_file(uifile)
-        # wTree=gtk.glade.XML(gladefile)
+        # wTree=Gtk.glade.XML(gladefile)
         ## Create the treeview and link it to the model
         # self.w_treeview = wTree.get_widget("treeview")
         self.w_treeview = wTree.get_object("treeview")
@@ -98,7 +98,7 @@ class FileBrowser_pycode( object ):
         #mgr = gtksourceview.SourceLanguagesManager()
         srcLanguage = get_language_for_mime_type("text/x-python")
         
-        #self.helpBfr = gtk.TextBuffer()
+        #self.helpBfr = Gtk.TextBuffer()
         self.srcScrolledWindow = wTree.get_object("srcScrolledWindow")
         # self.srcView = gtksourceview.View(self.srcBfr)
         self.srcScrolledWindow.add(self.srcView)
@@ -114,7 +114,7 @@ class FileBrowser_pycode( object ):
         self.srcView.show()
         self.terminalScrolledWindow = wTree.get_object("terminalScrolledWindow")
         self.terminal_expander = wTree.get_object("terminalexpander")
-        self.terminal = vte.Terminal()
+        self.terminal = Vte.Terminal()
         self.terminalScrolledWindow.add(self.terminal)
         self.terminal.show()
         #self.helpView = wTree.get_widget("helpView")
@@ -130,11 +130,10 @@ class FileBrowser_pycode( object ):
              "on_treeview_cursor_changed":self.disp_details,
              "saveas_clicked":self.save_as,
              "about_clicked":self.about}
-        # wTree.signal_autoconnect(dic)
         wTree.connect_signals(dic)
         ## Create the columns to view the contents
-        self.columns = [ gtk.TreeViewColumn(title) for title in ['Filename'] ]
-        self.w_cell = gtk.CellRendererText()
+        self.columns = [ Gtk.TreeViewColumn(title) for title in ['Filename'] ]
+        self.w_cell = Gtk.CellRendererText()
         self.w_cell.set_property("xalign",0)
         for i,column in enumerate(self.columns):
             self.w_treeview.append_column(column)
@@ -144,22 +143,21 @@ class FileBrowser_pycode( object ):
 
         ## Create a cell-renderer that displays a little directory or
         ## document icon depending on the file type
-        self.w_cellpix = gtk.CellRendererPixbuf()
+        self.w_cellpix = Gtk.CellRendererPixbuf()
         self.w_cellpix.set_property("xpad", 8)
         self.w_cellpix.set_property("xalign", 0)
         
         def pix_format_func(treeviewcolumn, cell, model, iter, dummyParam):
-          #print treeviewcolumn, cell, model, iter, dummyParam
           if model.get(iter,1)[0]:
-             cell.set_property("stock-id", gtk.STOCK_DIRECTORY)
+             cell.set_property("stock-id", Gtk.STOCK_DIRECTORY)
           else:
-             cell.set_property("stock-id", gtk.STOCK_ABOUT)
+             cell.set_property("stock-id", Gtk.STOCK_ABOUT)
              
         self.columns[0].pack_start(self.w_cellpix, expand=True)
         self.columns[0].set_cell_data_func(self.w_cellpix, pix_format_func)
 
     def quit(self,*args):
-        gtk.main_quit()
+        Gtk.main_quit()
     def execute (self,src):
         cmd = "/usr/bin/python"
         if self.srcBfr.get_modified()==True:
@@ -173,8 +171,13 @@ class FileBrowser_pycode( object ):
             argv = [cmd, src]
         self.terminal.reset(True, True)
         self.terminal.grab_focus()
-        # self.terminal.fork(command=cmd, argv=argv, envv=None)
-        self.terminal.spawn_sync (pty_flags=0, working_directory=None, argv=argv, envv=None, spawn_flags=0, child_setup=None, child_setup_data=None, cancellable=None)
+        self.terminal.spawn_sync (pty_flags=Vte.PtyFlags.DEFAULT,
+                                  working_directory='.',
+                                  argv=argv,
+                                  envv=[],
+                                  spawn_flags=GLib.SpawnFlags.DO_NOT_REAP_CHILD,
+                                  child_setup=None,
+                                  child_setup_data=None,)
         self.terminal_expander.set_expanded(True)
     def open_file(self,obj):
     	model, parent_iter = self.w_treeview.get_selection().get_selected()
@@ -191,20 +194,20 @@ class FileBrowser_pycode( object ):
         self.terminal.fork_command(command=cmd,argv=argv)
         self.terminal_expander.set_expanded(True)
     def save_as(self,obj):
-        dialog = gtk.FileChooserDialog(title=None,action=gtk.FILE_CHOOSER_ACTION_SAVE,buttons=(gtk.STOCK_CANCEL,gtk.RESPONSE_CANCEL,gtk.STOCK_SAVE,gtk.RESPONSE_OK))
+        dialog = Gtk.FileChooserDialog(title=None,action=Gtk.FILE_CHOOSER_ACTION_SAVE,buttons=(Gtk.STOCK_CANCEL,Gtk.RESPONSE_CANCEL,Gtk.STOCK_SAVE,Gtk.RESPONSE_OK))
         model, parent_iter = self.w_treeview.get_selection().get_selected()
         fpath = self.get_pathname_from_iter(parent_iter)
         path,filename = os.path.split(fpath)
         dialog.set_current_name(filename)
         response = dialog.run()
-        if response == gtk.RESPONSE_OK:
+        if response == Gtk.RESPONSE_OK:
             if self.srcBfr.get_modified()==True:
                 f = open(dialog.get_filename(),"w")
                 f.write(self.srcBfr.get_text(self.srcBfr.get_start_iter(), self.srcBfr.get_end_iter()))
                 f.close()
             else:
                 shutil.copy(fpath,dialog.get_filename())
-        elif response == gtk.RESPONSE_CANCEL:
+        elif response == Gtk.RESPONSE_CANCEL:
             print 'Closed, no files selected'
         dialog.destroy()
 
@@ -320,4 +323,4 @@ if __name__ == "__main__":
   
     fb = FileBrowser_pycode(os.path.join(abs_path(),'Code'),[".py"])
     fb.set_double_click_callback(my_callback)
-    gtk.main()
+    Gtk.main()
