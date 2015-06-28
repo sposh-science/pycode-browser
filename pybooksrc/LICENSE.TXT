@@ -1,0 +1,4 @@
+This Document is distributed under the GNU Free Documentation License.
+
+Author : Ajith Kumar B.P., Inter University Accelerator Centre, New Delhi 110067.
+(bpajith@gmail.com, ajith@iuac.res.in)
