@@ -19,10 +19,12 @@
 # May 8, 2010, the vte terminal added
 # June 14, 2012 Minor corrections in the class name.
 # version 0.93
-
+# (c) 2015 Georges Khaznadar <georgesk@debian.org>
+# use of 'gi.repository', and of 'temptfile'
 
 import os, stat, sys, time
 from gi.repository import Vte
+from tempfile import NamedTemporaryFile
 import pygtk
 pygtk.require('2.0')
 from gi.repository import Gtk
@@ -73,6 +75,7 @@ class FileBrowser_pycode( object ):
     initialized with a root directory.
     """
     def __init__( self, root_dir, filter_out_extensions = [] ):
+        self.tmpfiles=[] # files to be deleted upon quit
         self.root_dir  = root_dir
         self.filter_out_ext = filter_out_extensions
 
@@ -87,7 +90,6 @@ class FileBrowser_pycode( object ):
         uifile = abs_path_gui("gui.ui")
         wTree = Gtk.Builder()
         wTree.add_from_file(uifile)
-        # wTree=Gtk.glade.XML(gladefile)
         ## Create the treeview and link it to the model
         # self.w_treeview = wTree.get_widget("treeview")
         self.w_treeview = wTree.get_object("treeview")
@@ -95,12 +97,10 @@ class FileBrowser_pycode( object ):
 
         self.srcView = GtkSource.View()
         self.srcBfr = self.srcView.get_buffer()
-        #mgr = gtksourceview.SourceLanguagesManager()
         srcLanguage = get_language_for_mime_type("text/x-python")
         
         #self.helpBfr = Gtk.TextBuffer()
         self.srcScrolledWindow = wTree.get_object("srcScrolledWindow")
-        # self.srcView = gtksourceview.View(self.srcBfr)
         self.srcScrolledWindow.add(self.srcView)
         self.srcBfr.set_language(srcLanguage)
         self.srcBfr.set_highlight_syntax(True)
@@ -157,20 +157,29 @@ class FileBrowser_pycode( object ):
         self.columns[0].set_cell_data_func(self.w_cellpix, pix_format_func)
 
     def quit(self,*args):
+        for f in self.tmpfiles: os.unlink(f)
         Gtk.main_quit()
+        return
+
     def execute (self,src):
+        """
+        Executes Python code with Python2; if the editor's content has been
+        modified, takes its code from the editor's content.
+        @param src : a path to the source file loaded into the editor
+        """
         cmd = "/usr/bin/python"
+        tmpfile=None
         if self.srcBfr.get_modified()==True:
-            tname="pycode-0007-0007.py"
-            f = open("/tmp/"+tname,"w")
-            f.write(self.srcBfr.get_text(self.srcBfr.get_start_iter(), self.srcBfr.get_end_iter(), include_hidden_chars=False))
-            f.close()
-            #os.system("cp "+src+" /tmp/"+fname)
-            argv = [cmd, "/tmp/"+tname]
+            tmpfile=NamedTemporaryFile(mode='w', suffix='.py', prefix='pycode-007-', delete=False)
+            tmpfile.write(self.srcBfr.get_text(self.srcBfr.get_start_iter(), self.srcBfr.get_end_iter(), include_hidden_chars=False))
+            tmpfile.close()
+            argv = [cmd, tmpfile.name]
+            self.tmpfiles.append(tmpfile.name) # to delete the file later
         else:
             argv = [cmd, src]
         self.terminal.reset(True, True)
         self.terminal.grab_focus()
+        print "about to launch", argv
         self.terminal.spawn_sync (pty_flags=Vte.PtyFlags.DEFAULT,
                                   working_directory='.',
                                   argv=argv,
@@ -178,7 +187,10 @@ class FileBrowser_pycode( object ):
                                   spawn_flags=GLib.SpawnFlags.DO_NOT_REAP_CHILD,
                                   child_setup=None,
                                   child_setup_data=None,)
+        print "done"
         self.terminal_expander.set_expanded(True)
+        return
+        
     def open_file(self,obj):
     	model, parent_iter = self.w_treeview.get_selection().get_selected()
         pathname = self.get_pathname_from_iter(parent_iter)
