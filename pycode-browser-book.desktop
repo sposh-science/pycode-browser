@@ -1,0 +1,16 @@
+[Desktop Entry]
+Version=1.7.0
+Type=Application
+
+Exec=pycode-browser-book
+Icon=gnome-word.png
+
+Name=PythonBook
+
+Comment=PythonBook
+
+Categories=Electronics;Education;Science
+
+Terminal=false
+NoDisplay=false
+StartupNotify=false
