@@ -1,5 +1,5 @@
-PyCodeBrowser: Python Code Browser / Visualizer for Science and Math
-![](/pycode.png?raw=true "Screenshot of the pycode-browser")
+## PyCodeBrowser: Python Code Browser / Visualizer for Science and Math
+![](pycode-browser/pycode.png?raw=true "Screenshot of the pycode-browser")
 
 You can put any number of python files in this
 directory and the software will list and execute the files.
