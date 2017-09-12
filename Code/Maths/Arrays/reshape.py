@@ -1,4 +1,4 @@
-#Example reshape.py
+#Numpy: Reshaping arrays
 
 from numpy import *
 a = arange(20)

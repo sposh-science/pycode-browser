@@ -1,3 +1,4 @@
+#Calculating and plotting derivatives
 from pylab import *
 dx = 0.1                # value of x increment
 x = arange(0,10, dx)

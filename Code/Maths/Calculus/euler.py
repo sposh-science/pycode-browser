@@ -1,3 +1,4 @@
+#Euler integration
 import math
 
 h = 0.01    # stepsize

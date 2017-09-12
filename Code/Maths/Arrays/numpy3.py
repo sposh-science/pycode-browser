@@ -1,4 +1,4 @@
-#Example numpy3.py
+#Numpy: matrices
 
 from numpy import *
 a = [ [1,2] , [3,4] ] # make a list of lists

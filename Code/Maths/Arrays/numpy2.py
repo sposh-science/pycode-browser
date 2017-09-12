@@ -1,4 +1,4 @@
-#Example numpy2.py
+#Numpy: range, linspace, ones, zeros, random
 
 from numpy import *
 

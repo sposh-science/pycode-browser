@@ -1,4 +1,4 @@
-#Example fileio.py
+#File R/W example
 
 from numpy import *
 a = arange(10)

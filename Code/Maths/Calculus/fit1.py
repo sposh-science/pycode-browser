@@ -1,3 +1,4 @@
+#Least square method for Curve Fitting; plotting results.
 from pylab import *
 from scipy import *
 from scipy.optimize import leastsq

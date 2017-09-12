@@ -1,4 +1,4 @@
-#Example numpy1.py
+#Numpy : basic array with just two elements
 
 from numpy import *
 x = array( [1,2] )   # Make array from list

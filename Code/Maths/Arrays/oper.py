@@ -1,4 +1,4 @@
-#Example oper.py
+#Numpy: Ading, multiplying arrays
 
 from numpy import *
 a = array([[2,3], [4,5]])

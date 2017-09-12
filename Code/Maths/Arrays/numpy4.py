@@ -1,4 +1,4 @@
-#Example numpy4.py
+#Numpy: Reshaping
 
 from numpy import *
 a = arange(10)

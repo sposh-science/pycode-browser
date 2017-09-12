@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>936</width>
+    <height>637</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ExpEYES - 17</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="res.qrc">
+    <normaloff>:/control/eyes17-logo.png</normaloff>:/control/eyes17-logo.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">*{outline:none;}
+
+QMainWindow{background: rgb(56, 102, 115);} 
+QMessageBox {background: #444544;} 
+
+QTabBar{font:16px;} 
+QTabBar::tab{ padding:10px 50px; color:#CCCCCC;background: rgb(56, 102, 115);}
+QTabBar::tab:selected{color:white; background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:.7 rgb(126, 197, 220) , stop:1 rgba(0,0,0,100) );} 
+QTabBar::tab:hover{color:white; background:qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(26, 177, 191,255), stop:1 rgba(100, 100, 200,255) );} 
+
+.deep,#widgets{ background: rgb(57, 79, 99); }
+
+QListWidget{background: rgb(26, 32, 35);color:#FFFFFF;} 
+QListWidget::item:hover{background: #223344;color:#FFFFFF;} 
+
+QLabel,QRadioButton{color:#FFFFFF; margin:1px 2px;}
+QCheckBox{color:#FFFFEE; margin:3px 0px;}
+
+QSlider::groove:horizontal {margin:0px; padding:0px; border:none; background:#DDFDFE; color:#BB7777; height: 4px;}
+QSlider::handle:horizontal {background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #eee, stop:1 #ccc);border: 2px solid #777;width: 13px;margin-top: -3px;margin-bottom: -3px;border-radius: 3px;}
+
+QPushButton{border:1px solid #424242; padding:6px;color:#000000;background:#AAAAAA;}
+QPushButton:hover{background:rgb(26, 177, 191) ; color:white; border-color:#FFFFFF;}
+QPushButton::disabled{background:#333333 ; color:black;}
+QComboBox QAbstractItemView::item {
+    border-bottom: 5px solid white; margin:3px;
+}
+QComboBox QAbstractItemView::item:selected {
+    border-bottom: 5px solid black; margin:3px;
+}
+
+QToolTip{background:#FBE9E7;color:#757575; padding:4px; border:0px; margin:0px;} QPushButton{min-height24px; min-width:30px;}  </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="margin">
+     <number>0</number>
+    </property>
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
+      <property name="tabShape">
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <property name="currentIndex">
+       <number>1</number>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>25</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="usesScrollButtons">
+       <bool>false</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="helpTab">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/control/file.svg</normaloff>:/control/file.svg</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Help</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="helpLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="experimentTab">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/control/plots.svg</normaloff>:/control/plots.svg</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Experiments</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="experimentLayout">
+        <property name="margin">
+         <number>0</number>
+        </property>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="controlTab">
+       <attribute name="title">
+        <string>Controls/Readback</string>
+       </attribute>
+       <widget class="QGroupBox" name="groupBox">
+        <property name="geometry">
+         <rect>
+          <x>5</x>
+          <y>5</y>
+          <width>211</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>10</pointsize>
+          <italic>true</italic>
+         </font>
+        </property>
+        <property name="title">
+         <string>Digital Inputs</string>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout_11">
+         <property name="spacing">
+          <number>1</number>
+         </property>
+         <property name="margin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="DIN_IN2">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+           <property name="text">
+            <string>IN2</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="DIN_SQR1">
+           <property name="text">
+            <string>SQR1</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="DIN_OD1">
+           <property name="text">
+            <string>OD1</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="DIN_SEN">
+           <property name="text">
+            <string>SEN</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="DIN_CCS">
+           <property name="text">
+            <string>CCS</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="saveTab">
+       <attribute name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/control/saved.svg</normaloff>:/control/saved.svg</iconset>
+       </attribute>
+       <attribute name="title">
+        <string>Saved plots</string>
+       </attribute>
+       <attribute name="toolTip">
+        <string>View saved plots. Click on them to load them to the plot window for analysis</string>
+       </attribute>
+       <layout class="QVBoxLayout" name="saveLayout">
+        <property name="spacing">
+         <number>0</number>
+        </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>936</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuOptions">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionSave"/>
+   </widget>
+   <addaction name="menuOptions"/>
+  </widget>
+  <action name="actionSave">
+   <property name="icon">
+    <iconset resource="res.qrc">
+     <normaloff>:/control/saved.svg</normaloff>:/control/saved.svg</iconset>
+   </property>
+   <property name="text">
+    <string>save</string>
+   </property>
+   <property name="toolTip">
+    <string>save plot data</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>tabWidget</sender>
+   <signal>currentChanged(int)</signal>
+   <receiver>MainWindow</receiver>
+   <slot>tabChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>189</x>
+     <y>37</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>214</x>
+     <y>-12</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>start()</slot>
+  <slot>pause()</slot>
+  <slot>clear()</slot>
+  <slot>fit()</slot>
+  <slot>save()</slot>
+  <slot>locate()</slot>
+  <slot>load()</slot>
+  <slot>loadPlot(QListWidgetItem*)</slot>
+  <slot>peakGapChanged(int)</slot>
+  <slot>setAutoUpdate(bool)</slot>
+  <slot>calibrate()</slot>
+  <slot>changeDirectory()</slot>
+  <slot>setGainA1()</slot>
+  <slot>setGainA2()</slot>
+  <slot>setGainA3()</slot>
+  <slot>setGainMIC()</slot>
+  <slot>enableTrigger(bool)</slot>
+  <slot>setLabels()</slot>
+  <slot>setSineAmp(int)</slot>
+  <slot>setCH1Remap(QString)</slot>
+  <slot>setTimebase(int)</slot>
+  <slot>measure_interval()</slot>
+  <slot>DoubleInputInterval()</slot>
+  <slot>hx_tare()</slot>
+  <slot>tabChanged(int)</slot>
+  <slot>launchExperiment()</slot>
+  <slot>renameLabels()</slot>
+ </slots>
+</ui>
