@@ -25,11 +25,9 @@
 import os, stat, sys, time
 from gi.repository import Vte
 from tempfile import NamedTemporaryFile
-import pygtk
-pygtk.require('2.0')
+
 from gi.repository import Gtk
 
-from user import home
 import shutil
 from gi.repository import GtkSource
 from gi.repository import GLib
@@ -37,8 +35,8 @@ from gi.repository import GLib
 #GLOBALDIR = os.path.join(sys.prefix, 'share', 'pycode')
 #GLOBALDIR = ""
 #DEFAULTS = {
-#	'gladefile': os.path.join(GLOBALDIR, 'glade', 'pycode.glade'),
-#	'code_dir': os.path.join(GLOBALDIR, 'Code'),
+#        'gladefile': os.path.join(GLOBALDIR, 'glade', 'pycode.glade'),
+#        'code_dir': os.path.join(GLOBALDIR, 'Code'),
 #}
 
 def abs_path_gui(gladefile):
@@ -179,7 +177,7 @@ class FileBrowser_pycode( object ):
             argv = [cmd, src]
         self.terminal.reset(True, True)
         self.terminal.grab_focus()
-        print "about to launch", argv
+        print ("about to launch", argv)
         self.terminal.spawn_sync (pty_flags=Vte.PtyFlags.DEFAULT,
                                   working_directory='.',
                                   argv=argv,
@@ -187,16 +185,16 @@ class FileBrowser_pycode( object ):
                                   spawn_flags=GLib.SpawnFlags.DO_NOT_REAP_CHILD,
                                   child_setup=None,
                                   child_setup_data=None,)
-        print "done"
+        print ("done")
         self.terminal_expander.set_expanded(True)
         return
         
     def open_file(self,obj):
-    	model, parent_iter = self.w_treeview.get_selection().get_selected()
+        model, parent_iter = self.w_treeview.get_selection().get_selected()
         pathname = self.get_pathname_from_iter(parent_iter)
         extn = os.path.splitext(pathname)[1]
         if extn == ".py":
-	       	self.execute(pathname)
+            self.execute(pathname)
     def about(self,obj):
         abouttxt="Python Code Browser: Version 0.93\nCode: Vibeesh P., Vimal Joseph\nLicense: GNU GPL V3"
         #self.helpBfr.set_text(abouttxt)
@@ -220,7 +218,7 @@ class FileBrowser_pycode( object ):
             else:
                 shutil.copy(fpath,dialog.get_filename())
         elif response == Gtk.RESPONSE_CANCEL:
-            print 'Closed, no files selected'
+            print ('Closed, no files selected')
         dialog.destroy()
 
 
@@ -249,10 +247,10 @@ class FileBrowser_pycode( object ):
             self.btnSaveas.set_sensitive(False) 
             self.tbtnExecute.set_sensitive(False) 
             self.tbtnSaveas.set_sensitive(False)   
-    	self.srcBfr.set_text(desc)
+        self.srcBfr.set_text(desc)
         #self.helpBfr.set_text(hdesc)
         self.srcBfr.set_modified(False)
-    	
+            
     def get_pathname_from_iter( self, treeiter ):
         """Return a filesystem pathname from a tree in the path.  This
         involves looking up the filenames at each step and joining them.
@@ -277,16 +275,16 @@ class FileBrowser_pycode( object ):
         m = self.file_structure
         files = []
         for f in os.listdir(dir):
-		try:
-                      if f[0] != '.':
-	                if os.path.isdir(os.path.join(dir,f)):
-				if len(os.listdir(os.path.join(dir,f))) > 0 and f!="gui":
-		                	files.append(f)
-				
-                      	elif os.path.splitext(f)[1] in self.filter_out_ext:
-                      		files.append(f)
-	        except OSError,e:
-			print e
+                try:
+                    if f[0] != '.':
+                        if os.path.isdir(os.path.join(dir,f)):
+                            if len(os.listdir(os.path.join(dir,f))) > 0 and f!="gui":
+                                    files.append(f)
+
+                        elif os.path.splitext(f)[1] in self.filter_out_ext:
+                            files.append(f)
+                except OSError as e:
+                        print (e)
         files.sort()
         ## Stat each file andself.lbl_desc construct the row
         for f in files:
@@ -331,7 +329,7 @@ if __name__ == "__main__":
     def my_callback(fb,pathname,isdir):
         extn  = os.path.splitext(pathname)[1]
         if extn == ".py":
-        	fb.execute(pathname)
+                fb.execute(pathname)
   
     fb = FileBrowser_pycode(os.path.join(abs_path(),'Code'),[".py"])
     fb.set_double_click_callback(my_callback)
