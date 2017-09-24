@@ -1,5 +1,5 @@
 ## PyCodeBrowser: Python Code Browser / Visualizer for Science and Math
-![](pycode-browser/pycode.png?raw=true "Screenshot of the pycode-browser")
+![](/pycode.png?raw=true "Screenshot of the pycode-browser")
 
 You can put any number of python files in this
 directory and the software will list and execute the files.
@@ -13,4 +13,4 @@ Vimal Joseph <vimal.joseph@zyxware.com>
 
 Python code in the Code directory: Dr. Ajith Kumar <bpajith@gmail.com>
 
-+ [Online code browser](https://eyes-online.surge.sh/#/pycode-browser)
+<li> <a href="https://eyes-online.surge.sh/#/pycode-browser" target="_blank">Online code browser</a> </li>
