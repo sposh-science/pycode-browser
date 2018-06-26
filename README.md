@@ -14,3 +14,9 @@ Vimal Joseph <vimal.joseph@zyxware.com>
 Python code in the Code directory: Dr. Ajith Kumar <bpajith@gmail.com>
 
 <li> <a href="https://eyes-online.surge.sh/#/pycode-browser" target="_blank">Online code browser</a> </li>
+
+## Quantum mechanics examples
+### Asymmetric double well potential wavefunctions solved using matrix mechanics
+![](/Code/Physics/Quantum/asymmetric_double_well100.png?raw=true)
+
+
