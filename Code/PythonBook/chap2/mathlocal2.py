@@ -2,4 +2,4 @@
 
 from math import *   # import everything from math
 
-print sin(0.5)
+print( sin(0.5))

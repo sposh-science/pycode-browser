@@ -37,7 +37,7 @@ a = a/spatial_scaling
 b = b/spatial_scaling
 
 E10 = np.pi*np.pi/2./a  #4.9348022 #(pi^2)/(2*a^2)
-print ('E10 = ',E10)
+print( ('E10 = ',E10))
 energy_scaling = 1./E10  #27.211396
 V0 = 500 #depth of the well
 V0= V0/energy_scaling
@@ -105,7 +105,7 @@ for VL in delta:
 
 	PY = psi[0,:]**2 # +E[0]
 	lbl = 'VL = -%.2e'%(VL)
-	print min(V),E[0],E[1],max(PY[:len(PY)/2]),max(PY[len(PY)/2:])
+	print( min(V),E[0],E[1],max(PY[:len(PY)/2]),max(PY[len(PY)/2:]))
 	if VL==0:
 		ax1.plot(x[::10]*spatial_scaling,PY[::10],color='R',label='symmetric wells')
 	else:

@@ -17,7 +17,7 @@ y_meas = y_true + 0.2*randn(len(ax))
 
 p0 = [6, 50.0, pi/3]
 plsq = leastsq(err_func,p0,args=(y_meas,ax))
-print plsq
+print( plsq)
 
 plot(ax,y_true)
 plot(ax,y_meas,'o')

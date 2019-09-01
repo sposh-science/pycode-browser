@@ -7,5 +7,5 @@ while 1:        # Infinite loop
    if x > max:
       max = x
    if x == 0:
-      print max
+      print( max)
       break

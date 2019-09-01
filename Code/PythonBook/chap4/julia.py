@@ -24,15 +24,15 @@ def numit(x,y):       # number of iterations to diverge
      z = complex(x,y)
      for k in range(MAXIT):
             if abs(z) <= MAXABS:
-	        z = z**2 + c         
+                z = z**2 + c         
             else:
-		return k     # diverged after k trials
+                return k     # diverged after k trials
      return MAXIT            # did not diverge,
 
 for x in range(X):
     for y in range(Y):
-	re = rscale * x - rlim  # complex number represented
-	im = iscale * y - ilim	# by the (x,y) coordinate
+        re = rscale * x - rlim  # complex number represented
+        im = iscale * y - ilim  # by the (x,y) coordinate
         m[x][y] = numit(re,im)  # get the color for (x,y)
 
 imshow(m)  # Colored plot using the two dimensional matrix

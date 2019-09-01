@@ -18,7 +18,7 @@ y = 0.0     # for Euler
 z = 0.0     # for RK4
 
 while x < math.pi:
-     print x, y - math.sin(x), z - math.sin(x) # errors   
+     print( x, y - math.sin(x), z - math.sin(x) ) # errors
      y = y + h * math.cos(x)       # Euler method
      z = rk4(x,z,math.cos,h)       # Runge-Kutta method
      x = x + h

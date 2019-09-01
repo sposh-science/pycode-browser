@@ -1,13 +1,13 @@
 x = 1
 while x < 10:
    if x < 3:
-       print 'skipping work', x
+       print( 'skipping work', x)
        x = x + 1
        continue
-   print x
+   print( x)
    if x == 4:
-       print 'Enough of work'
+       print( 'Enough of work')
        break
    x = x  + 1
-print 'Done'
+print( 'Done')
 

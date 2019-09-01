@@ -42,4 +42,4 @@ items.append(pants(cheapblue, 2.0, 150.0) )
 items.append(shirt(costlyred, 1.5, 130.0) )
 
 for k in items:
-    print k, k.getcost()
+    print( k, k.getcost())

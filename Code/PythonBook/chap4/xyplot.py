@@ -9,7 +9,7 @@ while True:
     if len(s) < 3:
        break
     ss = s.split()
-    print ss
+    print( ss)
     x.append(ss[0])
     y.append(ss[1])
 

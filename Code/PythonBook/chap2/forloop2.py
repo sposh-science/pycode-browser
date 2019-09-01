@@ -1,7 +1,7 @@
 #Example: forloop2.py
 
 mylist = range(5)
-print mylist
+print( mylist)
 
 for item in mylist:
-    print item
+    print( item)

@@ -6,6 +6,6 @@ def get_number():
          x = string.atof(a)
          return x
       except:
-         print 'Enter a valid number'
+         print( 'Enter a valid number')
 
-print get_number()
+print( get_number())

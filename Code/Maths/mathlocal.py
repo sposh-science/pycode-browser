@@ -2,4 +2,4 @@
 
 from math import sin  # sin is imported as local
 
-print sin(0.5)  
+print( sin(0.5)  )

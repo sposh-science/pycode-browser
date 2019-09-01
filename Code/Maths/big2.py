@@ -3,7 +3,7 @@
 x = 1
 while x < 11:
     if x < 5:
-        print 'Samll ', x
+        print( 'Samll ', x)
     else:
-        print 'Big ', x
-print 'Done'
+        print( 'Big ', x)
+print( 'Done')

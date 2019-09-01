@@ -7,5 +7,5 @@ while 1: # infinite loop
     if s == '' :    # Empty string means end of file
          break      # terminate the loop
     m = int(s)      # Convert to integer
-    print m * 5     
+    print( m * 5     )
 f.close()

@@ -3,4 +3,4 @@
 def sum(a,b):    # a trivial function
     return a + b
 
-print sum(3, 4)
+print( sum(3, 4))

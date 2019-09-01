@@ -20,5 +20,5 @@ class pants(clothing):
 
 costlyred = clothing('red', 100.0)
 smallpant = pants(costlyred, 1.5, 100)
-print  smallpant.getcost()
-print smallpant
+print(  smallpant.getcost())
+print( smallpant)

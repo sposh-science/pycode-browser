@@ -8,5 +8,5 @@ class clothing:
                                 
 cheapblue = clothing('blue', 20.0)
 costlyred = clothing('red', 100.0)
-print cheapblue.rate
-print costlyred
+print( cheapblue.rate)
+print( costlyred)

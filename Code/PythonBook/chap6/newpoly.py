@@ -12,6 +12,6 @@ def coef(x,y):
 
 x  = [0,1,2,3]
 y  = [0,3,14,39]
-print coef(x,y)
+print( coef(x,y))
 
 

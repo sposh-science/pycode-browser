@@ -5,4 +5,4 @@ def spf(x):
 
 vspf = vectorize(spf)
 a = array([1,2,3,4])
-print vspf(a)
+print( vspf(a))

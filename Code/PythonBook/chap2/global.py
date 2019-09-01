@@ -4,4 +4,4 @@ def change(x):
 
 counter = 10      
 change(5)
-print counter
+print( counter)
