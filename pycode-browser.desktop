@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=1.0.0
+Type=Application
+
+Exec=pycode-browser
+Icon=gnome-word.png
+
+Name=LearnByCoding
+
+Comment=Python Programs
+
+Categories=Electronics;Education;Science
+
+Terminal=false
+NoDisplay=false

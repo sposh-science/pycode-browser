@@ -1,14 +1,14 @@
-#Example numpy2.py
+#Numpy: range, linspace, ones, zeros, random
 
 from numpy import *
 
 a = arange(1.0, 2.0, 0.1) # start, stop & step
-print a
+print (a)
 b = linspace(1,2,11) 
-print b
+print (b)
 c = ones(5)         
-print c
+print (c)
 d = zeros(5)
-print d
+print (d)
 e = random.rand(5)
-print e
+print (e)

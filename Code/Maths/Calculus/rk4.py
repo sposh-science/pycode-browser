@@ -1,3 +1,4 @@
+#Solving initial value problem using 4th order Runge-Kutta method.
 '''
 Solving initial value problem using 4th order Runge-Kutta method.
 Sine function is calculated using its derivative, cosine.

@@ -1,4 +1,4 @@
-Example plot2.py
+#Example plot2.py
 
 from pylab import *
 x = [1,2,5]

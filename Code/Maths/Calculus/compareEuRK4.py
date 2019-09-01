@@ -1,3 +1,4 @@
+#Euler and Runge-Kutta methods are used to calculate sine from its derivative, cosine.
 '''
 Sine function is calculated using its derivative, cosine.
 Using Euler and RK4 method, with
