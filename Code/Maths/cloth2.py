@@ -10,5 +10,5 @@ class clothing:
             return '%s Cloth at Rs. %6.2f per sqmtr'%(self.colour, self.rate)
 cheapblue = clothing('blue', 20.0)
 costlyred = clothing('red', 100.0)
-print cheapblue.rate
-print costlyred
+print( cheapblue.rate)
+print( costlyred)

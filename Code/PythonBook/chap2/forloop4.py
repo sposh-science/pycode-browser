@@ -3,5 +3,5 @@ size = len(a)
 for k in range(size):
 	if a[k] < 0:
 		a[k] = 0
-print a
+print( a)
 		

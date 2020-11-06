@@ -18,7 +18,7 @@ x = 0.0     # initail values
 y = 0.0
 
 while x < math.pi:
-     print x, y, math.sin(x)   
+     print( x, y, math.sin(x)   )
      y = rk4(x,y,math.cos)       # Runge-Kutta method
      x = x + h
 

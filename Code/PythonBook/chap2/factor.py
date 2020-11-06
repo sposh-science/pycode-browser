@@ -5,4 +5,4 @@ def factorial(n): # a recursive function
          return 1 
     else: 
          return n * factorial(n-1) 
-print factorial(10) 
+print( factorial(10) )

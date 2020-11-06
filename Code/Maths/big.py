@@ -3,8 +3,8 @@
 x = input('Enter a number ')
 
 if x > 10:
-    print 'Bigger Number'
+    print( 'Bigger Number')
 elif x < 10:
-    print 'Smaller Number'
+    print( 'Smaller Number')
 else:
-    print 'Same Number'
+    print( 'Same Number')

@@ -9,7 +9,7 @@ xbar = mean(x)
 ybar = mean(data)
 b = sum(data*(x-xbar)) / sum(x*(x-xbar))
 a = ybar - xbar * b
-print a,b
+print( a,b)
 
 y = a + b * x
 plot(x,y)

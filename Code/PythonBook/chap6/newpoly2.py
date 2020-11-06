@@ -9,5 +9,5 @@ def coef(x,y):
 
 x  = array([0,1,2,3])
 y  = array([0,3,14,39])
-print coef(x,y)
+print( coef(x,y))
 

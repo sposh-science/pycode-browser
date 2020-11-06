@@ -9,11 +9,11 @@ def df(x):
 def nr(x, tol = 1.0e-9):
 	for i in range(30):
 		dx = -f(x)/df(x)
-		#print x
+		#print( x)
 		x = x + dx
 		if abs(dx) < tol: 
 			return x
 
-print nr(4)
-print nr(1)
-print nr(-4)
+print( nr(4))
+print( nr(1))
+print( nr(-4))

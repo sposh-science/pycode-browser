@@ -1,6 +1,6 @@
 from numpy import *
-print random.normal()
+print( random.normal())
 
 import scipy.special
-print scipy.special.j0(.1)
+print( scipy.special.j0(.1))
 

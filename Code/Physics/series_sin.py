@@ -9,7 +9,7 @@ for n in  range(1,5):
 	sign = (-1)**(n+1)
 	term = x**(2*n-1) / factorial(2*n-1)
 	a = a + sign * term
-	print n,sign
+	print( n,sign)
 	plot(x,term)
 plot(x,a,'+')
 show()
