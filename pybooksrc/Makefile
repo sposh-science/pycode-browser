@@ -17,5 +17,5 @@ install:
 	pdflatex $<
 	logfile=$$(echo $< | sed 's/tex/log/'); \
 	while (grep  Warning $${logfile}| grep -iq run); do \
-	  pdflatex $<; \
+	  pdflatex \\year=2017\\month=11\\day=06\\pdftrailerid{}\\input $<; \
 	done
